@@ -16,7 +16,11 @@ public class SAE {
     private static final ArrayList<Noeud> listeNoeuds = new ArrayList<Noeud>();
     private static final ArrayList<Lien> listeLiens = new ArrayList<Lien>() ;
     
-    
+    private static Noeud lyon = new Noeud("Lyon","localite");
+    private static Noeud vienne = new Noeud("Vienne","localite");
+    private static Noeud annecy = new Noeud("Annecy","localite");
+    private static Lien lien1 = new Lien(lyon,annecy,"A",100);
+    private static Lien lien2 = new Lien(lyon,vienne,"A",20);
     
         
     /**
@@ -24,16 +28,16 @@ public class SAE {
      */
     public static void main(String[] args) {
         remplir();
-        afficherNombre();
+        afficheDeuxDistance(lyon, annecy);
     }
     
     public static void remplir(){
-        Noeud lyon = new Noeud("Lyon","localite");
-        Noeud vienne = new Noeud("Vienne","localite");
-        Noeud annecy = new Noeud("Annecy","localite");
+        
         listeNoeuds.add(lyon);
         listeNoeuds.add(vienne);
         listeNoeuds.add(annecy);
+        listeLiens.add(lien1);
+        listeLiens.add(lien2);
     }
     
     
@@ -143,11 +147,49 @@ public class SAE {
         System.out.println("nombre de départementales :"+nbDep);
     }
     
-    public void afficheVoisinsDirect(Noeud obj){
+    public static void afficheVoisinsDirect(Noeud obj){
         for(Lien lien: listeLiens){
-            if(lien.getNomD().equals(obj.getNom())){
-               
+            if(lien.getNomD().equals(obj) || lien.getNomA().equals(obj)){
+               System.out.println(lien.getNomA());
             }
         }
+    }
+    
+    public static void afficheInfoLien(Lien lien){
+        System.out.println("Ce lien relie le " + lien.getNomD() + "et le " + lien.getNomD());
+    }
+    
+    public static void afficheDeuxDistance(Noeud depart, Noeud arrive){
+        boolean trouve = false;
+        int distance = -1;
+        for(Lien lien: listeLiens){
+            Noeud lienD = lien.getNomD();
+            Noeud lienA = lien.getNomA();
+            if(lienA.equals(depart) || lienD.equals(depart)){
+                Noeud noeudCentre;
+                if(lienA.equals(depart)){
+                    noeudCentre = lienD;
+                }else{
+                    noeudCentre = lienA;
+                }
+                for(Lien lien2:listeLiens){
+                    Noeud lien2D = lien2.getNomD();
+                    Noeud lien2A = lien2.getNomA();
+                    if(lien2.getNomA().equals(noeudCentre) && !lien2.equals(lien) || lien2.getNomD().equals(noeudCentre) && !lien2.equals(lien)){
+                        if(lien2A.equals(arrive) || lien2D.equals(arrive)){
+                            trouve = true;
+                            distance = lien.getLongueur()+lien2.getLongueur();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (trouve){
+            System.out.println("les 2 noeuds sont rélié et son séparé de " + distance+ " km");
+        }else{
+            System.out.println("lex deux villes ne sont pas connecté a une 2-distance");
+        }
+        
     }
 }
