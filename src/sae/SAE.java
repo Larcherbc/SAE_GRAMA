@@ -13,14 +13,16 @@ import java.util.ArrayList;
 public class SAE {
     private int nbNoeuds;
     private int nbLiens;
-    private static final ArrayList<Noeud> listeNoeuds = new ArrayList<Noeud>();
-    private static final ArrayList<Lien> listeLiens = new ArrayList<Lien>() ;
+    private static final Noeuds listeNoeuds = new Noeuds();
+    private static final Liens listeLiens = new Liens() ;
     
     private static Noeud lyon = new Noeud("Lyon","localite");
     private static Noeud vienne = new Noeud("Vienne","localite");
     private static Noeud annecy = new Noeud("Annecy","localite");
+    private static Noeud resto = new Noeud("resto","restaurent");
     private static Lien lien1 = new Lien(lyon,annecy,"A",100);
     private static Lien lien2 = new Lien(lyon,vienne,"A",20);
+    private static Lien lien3 = new Lien(annecy,resto,"A",20);
     
         
     /**
@@ -28,7 +30,8 @@ public class SAE {
      */
     public static void main(String[] args) {
         remplir();
-        afficheDeuxDistance(lyon, annecy);
+        listeNoeuds.afficherLocalite();
+        comparaisonNoeud(lyon,annecy);
     }
     
     public static void remplir(){
@@ -36,70 +39,14 @@ public class SAE {
         listeNoeuds.add(lyon);
         listeNoeuds.add(vienne);
         listeNoeuds.add(annecy);
+        listeNoeuds.add(resto);
         listeLiens.add(lien1);
         listeLiens.add(lien2);
+        listeLiens.add(lien3);
     }
     
     
-    public static void afficherLocalite(){
-        for(Noeud obj : listeNoeuds){
-            if(obj.getType().equals("localite")){
-                System.out.println(obj);
-            }
-        }
-    }
     
-    public static void afficherLoisir(){
-        for(Noeud obj : listeNoeuds){
-            if(obj.getType().equals("loisir")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
-    public static void afficherResto(){
-        for(Noeud obj : listeNoeuds){
-            if(obj.getType().equals("resto")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
-    public static void afficherAutoroutes(){
-        for(Lien obj : listeLiens){
-            if(obj.getType().equals("autoroute")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
-    public static void afficherNationales(){
-        for(Lien obj : listeLiens){
-            if(obj.getType().equals("nationale")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
-    public static void afficherDepartementales(){
-        for(Lien obj : listeLiens){
-            if(obj.getType().equals("departementale")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
-    public static void afficherNoeuds(){
-        for(Noeud obj : listeNoeuds){
-            System.out.println(" - " + obj);
-        }
-    }
-    
-    public static void afficherLiens(){
-        for(Lien obj : listeLiens){
-            System.out.println(" - " + obj);
-        }
-    }
     
     public static void afficherNombre(){
         int nbLocalite=0;
@@ -175,7 +122,7 @@ public class SAE {
                 for(Lien lien2:listeLiens){
                     Noeud lien2D = lien2.getNomD();
                     Noeud lien2A = lien2.getNomA();
-                    if(lien2.getNomA().equals(noeudCentre) && !lien2.equals(lien) || lien2.getNomD().equals(noeudCentre) && !lien2.equals(lien)){
+                    if(lien2.getNomA().equals(noeudCentre) && !lien2.getNomD().equals(depart) || lien2.getNomD().equals(noeudCentre) && !lien2.getNomA().equals(depart)){
                         if(lien2A.equals(arrive) || lien2D.equals(arrive)){
                             trouve = true;
                             distance = lien.getLongueur()+lien2.getLongueur();
@@ -190,6 +137,64 @@ public class SAE {
         }else{
             System.out.println("lex deux villes ne sont pas connecté a une 2-distance");
         }
+    }
+    
+    public static void comparaisonNoeud(Noeud noeud1, Noeud noeud2){
+        int nbVille1;
+        int nbVille2;
+        int nbResto1;
+        int nbResto2;
+        int nbLoisir1;
+        int nbLoisir2;
+        ArrayList<Integer> listeOuverture = ouvertureNoeud(noeud1);
+        nbVille1 =listeOuverture.get(0);
+        nbResto1 =listeOuverture.get(1);
+        nbLoisir1 =listeOuverture.get(2);
+        System.out.println(listeOuverture);
+        listeOuverture = ouvertureNoeud(noeud2);
+        nbVille2 =listeOuverture.get(0);
+        nbResto2 =listeOuverture.get(1);
+        nbLoisir2 =listeOuverture.get(2);
+        System.out.println(listeOuverture);
         
+    }
+    
+    public static ArrayList ouvertureNoeud(Noeud noeud){
+        int nbVille=0;
+        int nbResto=0;
+        int nbLoisir=0;
+        ArrayList listeOuverture = new ArrayList();
+        for (Lien lien1 : listeLiens){
+            if(lien1.getNomA().equals(noeud) || lien1.getNomD().equals(noeud)){
+                Noeud noeudCentre;
+                if(lien1.getNomA().equals(noeud)){
+                    noeudCentre = lien1.getNomD();
+                }else{
+                    noeudCentre = lien1.getNomA();
+                }
+                for (Lien lien2 : listeLiens){
+                   if(lien2.getNomA().equals(noeudCentre) && !lien2.getNomD().equals(noeud) || lien2.getNomD().equals(noeudCentre) && !lien2.getNomA().equals(noeud)){
+                       Noeud noeudFinal;
+                        if(lien2.getNomA().equals(noeudCentre)){
+                            noeudFinal = lien2.getNomD();
+                        }else{
+                            noeudFinal = lien2.getNomA();
+                        }
+                        switch (noeudFinal.getType()){
+                            case "localite": nbVille++;
+                            break;
+                            case "restaurent":nbResto++;
+                            break;
+                            case"loisir":nbLoisir++;
+                            break;
+                        }
+                   } 
+                }
+            }
+        }
+        listeOuverture.add(nbVille);
+        listeOuverture.add(nbResto);
+        listeOuverture.add(nbLoisir);
+        return listeOuverture;
     }
 }
