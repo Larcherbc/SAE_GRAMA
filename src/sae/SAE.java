@@ -4,7 +4,12 @@
  */
 package sae;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +37,8 @@ public class SAE {
         remplir();
         listeNoeuds.afficherLocalite();
         comparaisonNoeud(lyon,annecy);
+        csv();
+        
     }
     
     public static void remplir(){
@@ -43,6 +50,19 @@ public class SAE {
         listeLiens.add(lien1);
         listeLiens.add(lien2);
         listeLiens.add(lien3);
+    }
+    
+    public static void csv(){
+        try {
+            String fileName = "GRAMA.txt";
+            Scanner scan = new Scanner(new File(fileName));
+            while(scan.hasNextLine()){
+                String line = scan.nextLine();
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SAE.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
