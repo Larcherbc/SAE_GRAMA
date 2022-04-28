@@ -4,6 +4,8 @@
  */
 package sae;
 
+import java.util.Objects;
+
 /**
  *
  * @author jules
@@ -42,6 +44,51 @@ public class Lien {
     public int getLongueur() {
         return longueur;
     }
+    
+    public void afficheInfo(){
+        System.out.println("Ce lien relie le " + this.getNomD() + "et le " + this.getNomD());
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.noeudD);
+        hash = 59 * hash + Objects.hashCode(this.noeudA);
+        hash = 59 * hash + Objects.hashCode(this.type);
+        hash = 59 * hash + this.longueur;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Lien other = (Lien) obj;
+        if (this.longueur != other.longueur) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (Objects.equals(this.noeudD, other.noeudA)) {
+            return true;
+        }
+        if (Objects.equals(this.noeudA, other.noeudD)) {
+            return true;
+        }
+        if (!Objects.equals(this.noeudD, other.noeudD)) {
+            return false;
+        }
+        return Objects.equals(this.noeudA, other.noeudA);
+    }
+
     
     
     

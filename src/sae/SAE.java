@@ -16,205 +16,188 @@ import java.util.logging.Logger;
  * @author jules
  */
 public class SAE {
-    private int nbNoeuds;
-    private int nbLiens;
+
     private static final Noeuds listeNoeuds = new Noeuds();
-    private static final Liens listeLiens = new Liens() ;
-    
-    private static Noeud lyon = new Noeud("Lyon","localite");
-    private static Noeud vienne = new Noeud("Vienne","localite");
-    private static Noeud annecy = new Noeud("Annecy","localite");
-    private static Noeud resto = new Noeud("resto","restaurent");
-    private static Lien lien1 = new Lien(lyon,annecy,"A",100);
-    private static Lien lien2 = new Lien(lyon,vienne,"A",20);
-    private static Lien lien3 = new Lien(annecy,resto,"A",20);
-    
-        
+    private static final Liens listeLiens = new Liens();
+
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        remplir();
-        listeNoeuds.afficherLocalite();
-        comparaisonNoeud(lyon,annecy);
-        csv();
-        
+
+        chargeGraph();// on importe notre graphe depuis un fichier txt
+        comparaisonNoeud(listeNoeuds.get(1), listeNoeuds.get(12));
+        //afficheDeuxDistance(listeNoeuds.get(0), listeNoeuds.get(1));
     }
     
-    public static void remplir(){
-        
-        listeNoeuds.add(lyon);
-        listeNoeuds.add(vienne);
-        listeNoeuds.add(annecy);
-        listeNoeuds.add(resto);
-        listeLiens.add(lien1);
-        listeLiens.add(lien2);
-        listeLiens.add(lien3);
-    }
     
-    public static void csv(){
+    /**
+     * permet de charger le graphe en mémoire
+     */
+    public static void chargeGraph() {
+        Noeud noeudD;
+        Noeud noeudA;
         try {
             String fileName = "GRAMA.txt";
-            Scanner scan = new Scanner(new File(fileName));
-            while(scan.hasNextLine()){
-                String line = scan.nextLine();
-                System.out.println(line);
+            Scanner scan = new Scanner(new File(fileName));//on récupère le fichier
+            while (scan.hasNextLine()) {//si la ligne existe
+                String line = scan.nextLine();//on prend la ligne
+                line = line.substring(0, line.length() - 2);//on enlève les ;; a la fin
+                String noeud = line.substring(0, line.indexOf(":")); // on récupère le noeud au début de la ligne grace au :
+                line = line.substring(line.indexOf(":") + 1); // on récupère le reste de la ligne sans le :
+                noeudD = creationNoeud(noeud); // on créer le noeud
+                String[] tabLiens = line.split(";"); //on split pour séparer chaque lien
+                for (String lienLigne : tabLiens) {
+                    String[] lienSplit = lienLigne.split("::");//split entre noeud et caratéristiques lien
+                    noeudA = creationNoeud(lienSplit[1]); // on créer le noeud
+                    creationLien(lienSplit[0], noeudD, noeudA); // on créer le lien
+                }
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SAE.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
-    
-    public static void afficherNombre(){
-        int nbLocalite=0;
-        int nbLoisir=0;
-        int nbResto=0;
-        int nbAuto=0;
-        int nbNatio=0;
-        int nbDep=0;
-        int nbNoeuds = 0;
-        int nbLiens = 0;
-        for(Noeud obj : listeNoeuds){
-            nbNoeuds++;
-            switch (obj.getType()){
-                case "localite":
-                    nbLocalite++;
-                    break;
-                case "loisir":
-                    nbLoisir++;
-                    break;
-                case "resto":
-                    nbResto++;
-                    break;
-            }
+
+    /**
+     * permet de créer un noeud si il n'existe pas déjà
+     * @param line
+     * @return 
+     */
+    public static Noeud creationNoeud(String line) {
+        String[] tabNoeud = line.split(","); // on split le début de la ligne pour créer un nv noeud
+        Noeud nvNoeud = new Noeud(tabNoeud[1], tabNoeud[0]); // on le créer
+        if (!listeNoeuds.contains(nvNoeud)) {//si il n'existe pas dans notre liste
+            listeNoeuds.add(nvNoeud);// on l'ajoute
         }
-        for(Lien obj : listeLiens){
-            nbLiens++;
-            switch (obj.getType()){
-                case "autoroute":
-                    nbAuto++;
-                    break;
-                case "nationale":
-                    nbNatio++;
-                    break;
-                case "departementale":
-                    nbDep++;
-                    break;
-            }
-        }
-        System.out.println("nombre de Noeuds :"+nbNoeuds);
-        System.out.println("nombre de localités :"+nbLocalite);
-        System.out.println("nombre de lieu de loisir :"+nbLoisir);
-        System.out.println("nombre de restaurant :"+nbResto);
-        System.out.println("nombre de liens :"+nbLiens);
-        System.out.println("nombre d'autoroutes :"+nbAuto);
-        System.out.println("nombre de départementales :"+nbDep);
+        return nvNoeud;
     }
     
-    public static void afficheVoisinsDirect(Noeud obj){
-        for(Lien lien: listeLiens){
-            if(lien.getNomD().equals(obj) || lien.getNomA().equals(obj)){
-               System.out.println(lien.getNomA());
-            }
+    /**
+     * permet de créer un lien si il n'existe pas déjà
+     * @param line
+     * @param noeudD
+     * @param noeudA 
+     */
+    public static void creationLien(String line, Noeud noeudD, Noeud noeudA) {
+        String[] tabLien = line.split(",");//on split les deux caractéristique
+        int longueur = Integer.parseInt(tabLien[1]);// on convertit en int la longeur
+        Lien nvLien = new Lien(noeudD, noeudA, tabLien[0], longueur);//on créer le nouveau lien
+        if (!listeLiens.contains(nvLien)) {//si le lien n'existe pas dans notre liste
+            listeLiens.add(nvLien);//on l'ajoute
         }
     }
-    
-    public static void afficheInfoLien(Lien lien){
-        System.out.println("Ce lien relie le " + lien.getNomD() + "et le " + lien.getNomD());
+
+    public static void afficherNombre() {
+        listeNoeuds.afficherNombre();
+        listeLiens.afficherNombre();
     }
     
-    public static void afficheDeuxDistance(Noeud depart, Noeud arrive){
-        boolean trouve = false;
-        int distance = -1;
-        for(Lien lien: listeLiens){
-            Noeud lienD = lien.getNomD();
-            Noeud lienA = lien.getNomA();
-            if(lienA.equals(depart) || lienD.equals(depart)){
-                Noeud noeudCentre;
-                if(lienA.equals(depart)){
-                    noeudCentre = lienD;
-                }else{
-                    noeudCentre = lienA;
-                }
-                for(Lien lien2:listeLiens){
-                    Noeud lien2D = lien2.getNomD();
-                    Noeud lien2A = lien2.getNomA();
-                    if(lien2.getNomA().equals(noeudCentre) && !lien2.getNomD().equals(depart) || lien2.getNomD().equals(noeudCentre) && !lien2.getNomA().equals(depart)){
-                        if(lien2A.equals(arrive) || lien2D.equals(arrive)){
-                            trouve = true;
-                            distance = lien.getLongueur()+lien2.getLongueur();
-                            break;
-                        }
-                    }
+    /**
+     * 
+     * @param obj
+     * @return retourne une liste de noeuds qui sont les voisins direct
+     */
+    public static Noeuds afficheVoisinsDirect(Noeud obj) {
+        Noeuds liste = new Noeuds();
+        for (Lien lien : listeLiens) {//on parcourt tout les liens
+            if (lien.getNomD().equals(obj)) { //si le noeud de départ est le meme
+                //System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
+                liste.add(lien.getNomA());
+            } else if (lien.getNomA().equals(obj)) {//si le noeud d'arrivé est le meme
+                //System.out.println(lien.getNomD());//on affiche celui de départ
+                liste.add(lien.getNomD());
+            }
+        }
+        return liste;
+    }
+    
+    /**
+     * permet de savoir si 2 noeuds sont situé a une 2 distance
+     * @param depart
+     * @param arrive 
+     */
+    public static void afficheDeuxDistance(Noeud depart, Noeud arrive) {
+        System.out.println(depart);
+        System.out.println(arrive);
+        Lien lien1;
+        Lien lien2;
+        ArrayList<Noeud> voisinDirect = afficheVoisinsDirect(depart);
+        for (Noeud noeud : voisinDirect) {
+            ArrayList<Noeud> voisin2 = afficheVoisinsDirect(noeud);
+            if (noeud.equals(arrive)) {
+                System.out.println("les deux noeud sont relié directement");
+                //on peut rajouter un break si on veux arreter la recherche ici
+            }
+            for (Noeud noeud2 : voisin2) {
+                if (noeud2.equals(arrive)) {
+                    lien1 = listeLiens.getLien(depart, noeud);
+                    lien2 = listeLiens.getLien(noeud, arrive);
+                    int distance = lien1.getLongueur() + lien2.getLongueur();
+                    System.out.println("les 2 noeuds sont rélié et sont séparé de " + distance + " km en passant par " + noeud);
                 }
             }
         }
-        if (trouve){
-            System.out.println("les 2 noeuds sont rélié et son séparé de " + distance+ " km");
-        }else{
-            System.out.println("lex deux villes ne sont pas connecté a une 2-distance");
+    }
+    
+    /**
+     * compare l'ouverture de 2 villes
+     * @param noeud1
+     * @param noeud2 
+     */
+    public static void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
+        System.out.println(noeud1);// affichage noeud de depart
+        System.out.println(noeud2);
+        if (!noeud1.getType().equals("V") || !noeud2.getType().equals("V")) {//si un des noeuds n'est pas une ville
+            System.out.println("un des deux noeuds n'est pas une ville");
+        } else {
+            int nbVille1;
+            int nbVille2;
+            int nbResto1;
+            int nbResto2;
+            int nbLoisir1;
+            int nbLoisir2;
+
+            Noeuds listeOuverture1 = ouvertureNoeud(noeud1);// on récupère une liste de nooeuds qui sont a une 2 distance
+            nbVille1 = listeOuverture1.afficherLocalite(); // on récupère le noombre de ville
+            nbResto1 = listeOuverture1.afficherRestaurent();
+            nbLoisir1 = listeOuverture1.afficherLoisir();
+
+            Noeuds listeOuverture2 = ouvertureNoeud(noeud2);
+            nbVille2 = listeOuverture2.afficherLocalite();
+            nbResto2 = listeOuverture2.afficherRestaurent();
+            nbLoisir2 = listeOuverture2.afficherLoisir();
+
+            if (nbVille1 > nbVille2) {// on compare
+                System.out.println(noeud1 + " est plus ouverte que " + noeud2);
+            }else if(nbVille1 < nbVille2){
+                System.out.println(noeud2 + " est plus ouverte que " + noeud1);
+            }else{
+                System.out.println("les deux villes sont autant ouverte");
+            }
+            // faut juste ajoouter les autres
         }
     }
+
     
-    public static void comparaisonNoeud(Noeud noeud1, Noeud noeud2){
-        int nbVille1;
-        int nbVille2;
-        int nbResto1;
-        int nbResto2;
-        int nbLoisir1;
-        int nbLoisir2;
-        ArrayList<Integer> listeOuverture = ouvertureNoeud(noeud1);
-        nbVille1 =listeOuverture.get(0);
-        nbResto1 =listeOuverture.get(1);
-        nbLoisir1 =listeOuverture.get(2);
-        System.out.println(listeOuverture);
-        listeOuverture = ouvertureNoeud(noeud2);
-        nbVille2 =listeOuverture.get(0);
-        nbResto2 =listeOuverture.get(1);
-        nbLoisir2 =listeOuverture.get(2);
-        System.out.println(listeOuverture);
-        
-    }
-    
-    public static ArrayList ouvertureNoeud(Noeud noeud){
-        int nbVille=0;
-        int nbResto=0;
-        int nbLoisir=0;
-        ArrayList listeOuverture = new ArrayList();
-        for (Lien lien1 : listeLiens){
-            if(lien1.getNomA().equals(noeud) || lien1.getNomD().equals(noeud)){
-                Noeud noeudCentre;
-                if(lien1.getNomA().equals(noeud)){
-                    noeudCentre = lien1.getNomD();
-                }else{
-                    noeudCentre = lien1.getNomA();
-                }
-                for (Lien lien2 : listeLiens){
-                   if(lien2.getNomA().equals(noeudCentre) && !lien2.getNomD().equals(noeud) || lien2.getNomD().equals(noeudCentre) && !lien2.getNomA().equals(noeud)){
-                       Noeud noeudFinal;
-                        if(lien2.getNomA().equals(noeudCentre)){
-                            noeudFinal = lien2.getNomD();
-                        }else{
-                            noeudFinal = lien2.getNomA();
-                        }
-                        switch (noeudFinal.getType()){
-                            case "localite": nbVille++;
-                            break;
-                            case "restaurent":nbResto++;
-                            break;
-                            case"loisir":nbLoisir++;
-                            break;
-                        }
-                   } 
+    /**
+     * 
+     * @param noeud 
+     * @return liste de Noeud a 2 distance du noeud de départ
+     */
+    public static Noeuds ouvertureNoeud(Noeud noeud) {
+        Noeuds listeVoisinDeuxD = new Noeuds();// on créé une liste de noeuds
+
+        Noeuds voisinDirect = afficheVoisinsDirect(noeud);// on créé une liste de noeud de tout les voisins directs
+        for (Noeud voisin : voisinDirect) {// on la parcourt
+            ArrayList<Noeud> voisin2 = afficheVoisinsDirect(voisin); // on créé une liste de noeuds de tout les voisins a  2 distance
+            for (Noeud noeud2 : voisin2) { // on la parcourt
+                if (!listeVoisinDeuxD.contains(noeud2) && !noeud2.equals(noeud)) {// si la liste ne contient pas déjà le noeud et si ce n'est pas la ville de départ
+                    listeVoisinDeuxD.add(noeud2);// on l'ajoute
                 }
             }
         }
-        listeOuverture.add(nbVille);
-        listeOuverture.add(nbResto);
-        listeOuverture.add(nbLoisir);
-        return listeOuverture;
+        return listeVoisinDeuxD;// on renvoit la liste des voisins a 2 distance
     }
 }
