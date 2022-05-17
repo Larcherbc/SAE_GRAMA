@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package sae;
 
@@ -13,30 +14,21 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author jules
+ * @author p2102071
  */
-public class SAE {
-
+public class Main {
     private static final Noeuds listeNoeuds = new Noeuds();
     private static final Liens listeLiens = new Liens();
     EcranPrincipal fenetre;
-
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        chargeGraph();// on importe notre graphe depuis un fichier txt
-        comparaisonNoeud(listeNoeuds.get(1), listeNoeuds.get(12));
-        //afficheDeuxDistance(listeNoeuds.get(0), listeNoeuds.get(1));
+    
+    public Main(EcranPrincipal fenetre){
+        this.fenetre = fenetre;
     }
     
-    
-    /**
+     /**
      * permet de charger le graphe en mémoire
      */
-    public static void chargeGraph() {
+    public void chargeGraph() {
         Noeud noeudD;
         Noeud noeudA;
         try {
@@ -55,6 +47,7 @@ public class SAE {
                     creationLien(lienSplit[0], noeudD, noeudA); // on créer le lien
                 }
             }
+            fenetre.setSaveText("Le graph a bien été chargé en mémoire!!!");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SAE.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,7 +58,7 @@ public class SAE {
      * @param line
      * @return 
      */
-    public static Noeud creationNoeud(String line) {
+    public Noeud creationNoeud(String line) {
         String[] tabNoeud = line.split(","); // on split le début de la ligne pour créer un nv noeud
         Noeud nvNoeud = new Noeud(tabNoeud[1], tabNoeud[0]); // on le créer
         if (!listeNoeuds.contains(nvNoeud)) {//si il n'existe pas dans notre liste
@@ -80,7 +73,7 @@ public class SAE {
      * @param noeudD
      * @param noeudA 
      */
-    public static void creationLien(String line, Noeud noeudD, Noeud noeudA) {
+    public void creationLien(String line, Noeud noeudD, Noeud noeudA) {
         String[] tabLien = line.split(",");//on split les deux caractéristique
         int longueur = Integer.parseInt(tabLien[1]);// on convertit en int la longeur
         Lien nvLien = new Lien(noeudD, noeudA, tabLien[0], longueur);//on créer le nouveau lien
@@ -89,7 +82,7 @@ public class SAE {
         }
     }
 
-    public static void afficherNombre() {
+    public void afficherNombre() {
         listeNoeuds.afficherNombre();
         listeLiens.afficherNombre();
     }
@@ -99,15 +92,17 @@ public class SAE {
      * @param obj
      * @return retourne une liste de noeuds qui sont les voisins direct
      */
-    public static Noeuds afficheVoisinsDirect(Noeud obj) {
+    public Noeuds afficheVoisinsDirect() {
+        Noeud obj = listeNoeuds.getNoeud(fenetre.getInput());
         Noeuds liste = new Noeuds();
         for (Lien lien : listeLiens) {//on parcourt tout les liens
             if (lien.getNomD().equals(obj)) { //si le noeud de départ est le meme
-                //System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
+                System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
                 liste.add(lien.getNomA());
             } else if (lien.getNomA().equals(obj)) {//si le noeud d'arrivé est le meme
-                //System.out.println(lien.getNomD());//on affiche celui de départ
+                System.out.println(lien.getNomD());//on affiche celui de départ
                 liste.add(lien.getNomD());
+                fenetre.setTextArea(lien.getNomD().getNom());
             }
         }
         return liste;
@@ -201,3 +196,5 @@ public class SAE {
         return listeVoisinDeuxD;// on renvoit la liste des voisins a 2 distance
     }
 }
+
+

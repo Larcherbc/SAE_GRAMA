@@ -12,6 +12,16 @@ import java.util.ArrayList;
  */
 public class Noeuds extends ArrayList<Noeud>{
     
+    public Noeud getNoeud(String name){
+        Noeud noeud = null;
+        for(Noeud obj :this){
+            if(obj.getNom().equals(name)){
+                noeud = obj;
+            }
+        }
+        return noeud;
+    }
+    
     public int afficherLocalite(){
         int compteur = 0;
         for(Noeud obj : this){
