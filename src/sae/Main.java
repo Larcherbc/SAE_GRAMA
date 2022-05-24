@@ -92,7 +92,7 @@ public class Main {
      * @param obj
      * @return retourne une liste de noeuds qui sont les voisins direct
      */
-    public Noeuds afficheVoisinsDirect() {
+    public Noeuds afficheVoisinsDirect(Noeud noeud) {
         Noeud obj = listeNoeuds.getNoeud(fenetre.getInput());
         Noeuds liste = new Noeuds();
         for (Lien lien : listeLiens) {//on parcourt tout les liens
@@ -113,7 +113,7 @@ public class Main {
      * @param depart
      * @param arrive 
      */
-    public static void afficheDeuxDistance(Noeud depart, Noeud arrive) {
+    public void afficheDeuxDistance(Noeud depart, Noeud arrive) {
         System.out.println(depart);
         System.out.println(arrive);
         Lien lien1;
@@ -141,7 +141,7 @@ public class Main {
      * @param noeud1
      * @param noeud2 
      */
-    public static void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
+    public void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
         System.out.println(noeud1);// affichage noeud de depart
         System.out.println(noeud2);
         if (!noeud1.getType().equals("V") || !noeud2.getType().equals("V")) {//si un des noeuds n'est pas une ville
@@ -181,7 +181,7 @@ public class Main {
      * @param noeud 
      * @return liste de Noeud a 2 distance du noeud de départ
      */
-    public static Noeuds ouvertureNoeud(Noeud noeud) {
+    public Noeuds ouvertureNoeud(Noeud noeud) {
         Noeuds listeVoisinDeuxD = new Noeuds();// on créé une liste de noeuds
 
         Noeuds voisinDirect = afficheVoisinsDirect(noeud);// on créé une liste de noeud de tout les voisins directs

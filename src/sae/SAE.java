@@ -28,8 +28,10 @@ public class SAE {
     public static void main(String[] args) {
 
         chargeGraph();// on importe notre graphe depuis un fichier txt
-        comparaisonNoeud(listeNoeuds.get(1), listeNoeuds.get(12));
+        //comparaisonNoeud(listeNoeuds.get(1), listeNoeuds.get(12));
         //afficheDeuxDistance(listeNoeuds.get(0), listeNoeuds.get(1));
+        afficherNombre();
+        listeLiens.afficherLiens();
     }
     
     

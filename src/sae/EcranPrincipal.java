@@ -280,7 +280,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_testInputActionPerformed
 
     private void getInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getInputActionPerformed
-        main.afficheVoisinsDirect();
+
     }//GEN-LAST:event_getInputActionPerformed
 
     /**
