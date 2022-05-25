@@ -25,6 +25,14 @@ public class Main {
         this.fenetre = fenetre;
     }
     
+    
+    public Noeuds getListeNoeud(){
+        return listeNoeuds;
+    }
+    public Liens getListeLiens(){
+        return listeLiens;
+    }
+    
      /**
      * permet de charger le graphe en mémoire
      */

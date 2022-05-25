@@ -4,7 +4,9 @@
  */
 package sae;
 
+import java.awt.Point;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  *
@@ -14,17 +16,30 @@ public class Noeud {
     
     private String Nom;
     private String type;
+    private Point coord;
 
     public Noeud(String Nom, String type) {
         this.Nom = Nom;
         this.type = type;
+        coord = new Point(getRandomNumberInRange(0, 1100),getRandomNumberInRange(0, 500));
     }
 
+    private static int getRandomNumberInRange(int min, int max) {
+	if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+	}
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+	}
+    
     @Override
     public String toString() {
-        return "Noeud{" + "Nom=" + Nom + ", type=" + type + '}';
+        return "Noeud{" + "Nom=" + Nom + ", type=" + type + '}' + coord.x + " " + coord.y;
     }
-
+    public Point getCoord(){
+        return coord;
+    }
     public String getNom() {
         return Nom;
     }

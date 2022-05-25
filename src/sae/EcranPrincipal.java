@@ -19,7 +19,8 @@ public class EcranPrincipal extends javax.swing.JFrame {
     public EcranPrincipal() {
         initComponents();
         main.chargeGraph();
-                
+        this.setContentPane(graph);
+        
                 
     }
 
@@ -61,6 +62,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 600));
 
         barreEtat.setLayout(new javax.swing.BoxLayout(barreEtat, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -333,7 +335,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         
     }
     Main main = new Main(this);
-    
+    private Graph graph=new Graph(main.getListeNoeud(),main.getListeLiens());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel affichage;
