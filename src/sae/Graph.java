@@ -45,11 +45,6 @@ public class Graph extends JPanel{
             g.drawString(obj.getNom(), obj.getCoord().x, obj.getCoord().y + SIZE + 10);
             
         }
-        System.out.println(listeLiens.getLien(listeNoeuds.getNoeud("Vitam-Park"), listeNoeuds.getNoeud("Cruseilles")));
-        System.out.println(listeNoeuds.getNoeud("Cruseilles"));
-        System.out.println(listeNoeuds.getNoeud("Vitam-Park"));
-        listeNoeuds.afficherLocalite();
-        
     }
     
 }

@@ -33,7 +33,7 @@ public class Noeud {
 	}
     
     public void setCoord(){
-        this.coord = new Point(getRandomNumberInRange(0, 1200),getRandomNumberInRange(0, 600));
+        this.coord = new Point(getRandomNumberInRange(20, 1100),getRandomNumberInRange(20, 500));
     }
     
     @Override
