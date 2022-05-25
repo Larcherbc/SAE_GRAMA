@@ -22,6 +22,12 @@ public class Noeuds extends ArrayList<Noeud>{
         return noeud;
     }
     
+    public void creationCoord(){
+        for(Noeud obj : this){
+            obj.setCoord();
+        }
+    }
+    
     public int afficherLocalite(){
         int compteur = 0;
         for(Noeud obj : this){

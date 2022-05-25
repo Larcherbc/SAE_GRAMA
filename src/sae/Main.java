@@ -59,6 +59,7 @@ public class Main {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SAE.class.getName()).log(Level.SEVERE, null, ex);
         }
+        listeNoeuds.creationCoord();
     }
 
     /**
@@ -71,6 +72,8 @@ public class Main {
         Noeud nvNoeud = new Noeud(tabNoeud[1], tabNoeud[0]); // on le créer
         if (!listeNoeuds.contains(nvNoeud)) {//si il n'existe pas dans notre liste
             listeNoeuds.add(nvNoeud);// on l'ajoute
+        }else{
+            nvNoeud = listeNoeuds.getNoeud(tabNoeud[1]);
         }
         return nvNoeud;
     }

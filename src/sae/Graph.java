@@ -15,24 +15,23 @@ import static sae.SAE.main;
  * @author jules
  */
 public class Graph extends JPanel{
-    private Noeuds listenoeuds;
-    private Liens listeliens;
+    private Noeuds listeNoeuds;
+    private Liens listeLiens;
     private final static int SIZE = 20;
-    public Graph(Noeuds listenoeuds,Liens listeliens) {
-        this.listeliens = listeliens;
-        this.listenoeuds = listenoeuds;
+    public Graph(Noeuds listeNoeuds,Liens listeLiens) {
+        this.listeLiens = listeLiens;
+        this.listeNoeuds = listeNoeuds;
     }
+    
     
     
     public void paintComponent(Graphics g){
         g.setColor(Color.black);
-        for(Lien obj : listeliens){
-            //System.out.println(obj.getNomA().getCoord().x + obj.getNomA().getNom());
-            g.drawLine(obj.getNomA().getCoord().x, obj.getNomA().getCoord().y, obj.getNomD().getCoord().x, obj.getNomD().getCoord().y);
-            
+        for(Lien obj : listeLiens){   
+           g.drawLine(obj.getNomA().getCoord().x, obj.getNomA().getCoord().y, obj.getNomD().getCoord().x, obj.getNomD().getCoord().y);  
         }
         g.setColor(Color.red);
-        for(Noeud obj : listenoeuds){
+        for(Noeud obj : listeNoeuds){
             if(obj.getType().equals("R")){
                 g.setColor(Color.blue);
             }
@@ -46,10 +45,10 @@ public class Graph extends JPanel{
             g.drawString(obj.getNom(), obj.getCoord().x, obj.getCoord().y + SIZE + 10);
             
         }
-        System.out.println(listeliens.getLien(listenoeuds.getNoeud("Vitam-Park"), listenoeuds.getNoeud("Cruseilles")));
-        System.out.println(listenoeuds.getNoeud("Cruseilles"));
-        System.out.println(listenoeuds.getNoeud("Vitam-Park"));
-        listenoeuds.afficherLocalite();
+        System.out.println(listeLiens.getLien(listeNoeuds.getNoeud("Vitam-Park"), listeNoeuds.getNoeud("Cruseilles")));
+        System.out.println(listeNoeuds.getNoeud("Cruseilles"));
+        System.out.println(listeNoeuds.getNoeud("Vitam-Park"));
+        listeNoeuds.afficherLocalite();
         
     }
     

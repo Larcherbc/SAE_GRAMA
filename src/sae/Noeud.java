@@ -21,7 +21,6 @@ public class Noeud {
     public Noeud(String Nom, String type) {
         this.Nom = Nom;
         this.type = type;
-        coord = new Point(getRandomNumberInRange(0, 1100),getRandomNumberInRange(0, 500));
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -32,6 +31,10 @@ public class Noeud {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
 	}
+    
+    public void setCoord(){
+        this.coord = new Point(getRandomNumberInRange(0, 1200),getRandomNumberInRange(0, 600));
+    }
     
     @Override
     public String toString() {
