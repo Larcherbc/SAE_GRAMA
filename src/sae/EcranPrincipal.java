@@ -18,7 +18,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
      */
     public EcranPrincipal() {
         initComponents();
-        main.chargeGraph();
+        graph.chargeGraph();
         this.setContentPane(graph);
         
                 
@@ -334,8 +334,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         textArea.append(texte + "\n");
         
     }
-    Main main = new Main(this);
-    private Graph graph=new Graph(main.getListeNoeud(),main.getListeLiens());
+    Graph graph = new Graph(this);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel affichage;

@@ -28,6 +28,16 @@ public class Noeuds extends ArrayList<Noeud>{
         }
     }
     
+    public void isFarAwayFromAll(Noeud noeud){
+        for(Noeud obj : this){
+            do {                
+                for(Noeud obj2:this){
+                    obj.isFarEnough(obj2);
+                }
+            } while (true);
+        }
+    }
+    
     public int afficherLocalite(){
         int compteur = 0;
         for(Noeud obj : this){

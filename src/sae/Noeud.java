@@ -13,7 +13,7 @@ import java.util.Random;
  * @author jules
  */
 public class Noeud {
-    
+
     private String Nom;
     private String type;
     private Point coord;
@@ -24,25 +24,38 @@ public class Noeud {
     }
 
     private static int getRandomNumberInRange(int min, int max) {
-	if (min >= max) {
+        if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
-	}
+        }
 
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
-	}
-    
-    public void setCoord(){
-        this.coord = new Point(getRandomNumberInRange(20, 1100),getRandomNumberInRange(20, 500));
     }
-    
+
+    public void setCoord() {
+        this.coord = new Point(getRandomNumberInRange(20, 1100), getRandomNumberInRange(20, 500));
+    }
+
+    public boolean isFarEnough(Noeud noeud) {
+        if (noeud.coord != null && !this.equals(noeud)) {
+            if (this.coord.distance(noeud.coord) > 100) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         return "Noeud{" + "Nom=" + Nom + ", type=" + type + '}' + coord.x + " " + coord.y;
     }
-    public Point getCoord(){
+
+    public Point getCoord() {
         return coord;
     }
+
     public String getNom() {
         return Nom;
     }
@@ -71,6 +84,5 @@ public class Noeud {
         final Noeud other = (Noeud) obj;
         return Objects.equals(this.Nom, other.Nom);
     }
-    
-    
+
 }

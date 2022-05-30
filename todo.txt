@@ -1,0 +1,3 @@
+empecher coord random trop proche
+
+faire une liste des noeuds selectionné pour affichage
