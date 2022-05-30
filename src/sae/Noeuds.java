@@ -28,14 +28,21 @@ public class Noeuds extends ArrayList<Noeud>{
         }
     }
     
-    public void isFarAwayFromAll(Noeud noeud){
+    public void testCoord(){
         for(Noeud obj : this){
-            do {                
-                for(Noeud obj2:this){
-                    obj.isFarEnough(obj2);
-                }
-            } while (true);
+            while(! isFarAwayFromAll(obj)){
+                obj.setCoord();
+            }
         }
+    }
+    
+    public boolean isFarAwayFromAll(Noeud noeud){
+        boolean statut = true;
+        for(Noeud obj : this){
+            if (!noeud.isFarEnough(obj))
+                statut =false;
+        }
+        return statut;
     }
     
     public int afficherLocalite(){

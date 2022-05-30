@@ -21,6 +21,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         graph.chargeGraph();
         this.setContentPane(graph);
         
+        
                 
     }
 

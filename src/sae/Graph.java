@@ -83,6 +83,7 @@ public class Graph extends JPanel{
             Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, null, ex);
         }
         listeNoeuds.creationCoord();
+        listeNoeuds.testCoord();
     }
 
     /**
