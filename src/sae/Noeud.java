@@ -7,6 +7,7 @@ package sae;
 import java.awt.Point;
 import java.util.Objects;
 import java.util.Random;
+import javax.swing.JPanel;
 
 /**
  *
@@ -32,8 +33,8 @@ public class Noeud {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public void setCoord() {
-        this.coord = new Point(getRandomNumberInRange(20, 1100), getRandomNumberInRange(20, 500));
+    public void setCoord(int x, int y) {
+        this.coord = new Point(getRandomNumberInRange(30, x-30), getRandomNumberInRange(30, y-30));
     }
 
     public boolean isFarEnough(Noeud noeud) {

@@ -5,6 +5,7 @@
 package sae;
 
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
@@ -22,16 +23,17 @@ public class Noeuds extends ArrayList<Noeud>{
         return noeud;
     }
     
-    public void creationCoord(){
+    public void creationCoord(int x, int y){
         for(Noeud obj : this){
-            obj.setCoord();
+            obj.setCoord(x, y);
         }
+        testCoord(x, y);
     }
     
-    public void testCoord(){
+    public void testCoord(int x, int y){
         for(Noeud obj : this){
             while(! isFarAwayFromAll(obj)){
-                obj.setCoord();
+                obj.setCoord(x, y);
             }
         }
     }

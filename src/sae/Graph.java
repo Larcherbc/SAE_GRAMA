@@ -24,12 +24,17 @@ public class Graph extends JPanel{
     private static Liens listeLiens;
     EcranPrincipal fenetre;
     private final static int SIZE = 20;
+    private final static int DEFAULTWIDTH = 1100;
+    private final static int DEFAULTHEIGHT = 700;
     
     public Graph(EcranPrincipal fenetre){
         this.fenetre = fenetre;
         this.listeNoeuds = new Noeuds();
         this.listeLiens = new Liens();
     }
+
+    
+    
     
     
     @Override
@@ -50,8 +55,7 @@ public class Graph extends JPanel{
                 g.setColor(Color.yellow);
             }
             g.fillOval(obj.getCoord().x - SIZE/2, obj.getCoord().y - SIZE/2, SIZE, SIZE);
-            g.drawString(obj.getNom(), obj.getCoord().x, obj.getCoord().y + SIZE + 10);
-            
+            g.drawString(obj.getNom(), obj.getCoord().x-obj.getNom().length()/2*5, obj.getCoord().y + SIZE + 10);
         }
     }
     
@@ -78,12 +82,16 @@ public class Graph extends JPanel{
                     creationLien(lienSplit[0], noeudD, noeudA); // on créer le lien
                 }
             }
-            fenetre.setSaveText("Le graph a bien été chargé en mémoire!!!");
+            //fenetre.setSaveText("Le graph a bien été chargé en mémoire!!!");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, null, ex);
         }
-        listeNoeuds.creationCoord();
-        listeNoeuds.testCoord();
+        if (this.getWidth()==0) {
+            listeNoeuds.creationCoord(DEFAULTWIDTH,DEFAULTHEIGHT);
+        }else{
+            listeNoeuds.creationCoord(this.getWidth(),this.getHeight());
+        }
+        
     }
 
     /**
@@ -128,16 +136,15 @@ public class Graph extends JPanel{
      * @return retourne une liste de noeuds qui sont les voisins direct
      */
     public Noeuds afficheVoisinsDirect(Noeud noeud) {
-        Noeud obj = listeNoeuds.getNoeud(fenetre.getInput());
+        //Noeud obj = listeNoeuds.getNoeud(fenetre.getInput());
         Noeuds liste = new Noeuds();
         for (Lien lien : listeLiens) {//on parcourt tout les liens
-            if (lien.getNomD().equals(obj)) { //si le noeud de départ est le meme
+            if (lien.getNomD().equals(noeud)) { //si le noeud de départ est le meme
                 System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
                 liste.add(lien.getNomA());
-            } else if (lien.getNomA().equals(obj)) {//si le noeud d'arrivé est le meme
+            } else if (lien.getNomA().equals(noeud)) {//si le noeud d'arrivé est le meme
                 System.out.println(lien.getNomD());//on affiche celui de départ
                 liste.add(lien.getNomD());
-                fenetre.setTextArea(lien.getNomD().getNom());
             }
         }
         return liste;
