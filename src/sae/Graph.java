@@ -25,7 +25,7 @@ public class Graph extends JPanel{
     EcranPrincipal fenetre;
     private final static int SIZE = 20;
     private final static int DEFAULTWIDTH = 1100;
-    private final static int DEFAULTHEIGHT = 700;
+    private final static int DEFAULTHEIGHT = 500;
     
     public Graph(EcranPrincipal fenetre){
         this.fenetre = fenetre;
@@ -45,14 +45,18 @@ public class Graph extends JPanel{
         }
         g.setColor(Color.red);
         for(Noeud obj : listeNoeuds){
-            if(obj.getType().equals("R")){
-                g.setColor(Color.blue);
-            }
-            else if(obj.getType().equals("V")){
-                g.setColor(Color.red);
-            }
-            else if(obj.getType().equals("L")){
-                g.setColor(Color.yellow);
+            switch (obj.getType()) {
+                case "R":
+                    g.setColor(Color.blue);
+                    break;
+                case "V":
+                    g.setColor(Color.red);
+                    break;
+                case "L":
+                    g.setColor(Color.yellow);
+                    break;
+                default:
+                    break;
             }
             g.fillOval(obj.getCoord().x - SIZE/2, obj.getCoord().y - SIZE/2, SIZE, SIZE);
             g.drawString(obj.getNom(), obj.getCoord().x-obj.getNom().length()/2*5, obj.getCoord().y + SIZE + 10);

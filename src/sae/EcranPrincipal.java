@@ -44,7 +44,13 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
         jButton6.setText("jButton6");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +83,11 @@ public class EcranPrincipal extends javax.swing.JFrame {
         graph.chargeGraph();
         this.repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        graph.chargeGraph();
+        this.repaint();
+    }//GEN-LAST:event_formComponentResized
 
     /**
      * @param args the command line arguments
