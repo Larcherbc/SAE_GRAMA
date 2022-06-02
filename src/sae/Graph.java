@@ -21,6 +21,7 @@ import javax.swing.JPanel;
  */
 public class Graph extends JPanel{
     private static Noeuds listeNoeuds;
+    private static Noeuds listeNoeudsSelection;
     private static Liens listeLiens;
     EcranPrincipal fenetre;
     private final static int SIZE = 20;
@@ -30,6 +31,7 @@ public class Graph extends JPanel{
     public Graph(EcranPrincipal fenetre){
         this.fenetre = fenetre;
         this.listeNoeuds = new Noeuds();
+        this.listeNoeudsSelection = new Noeuds();
         this.listeLiens = new Liens();
     }
 
@@ -97,7 +99,12 @@ public class Graph extends JPanel{
         }
         
     }
-
+    
+    public void emptyCurrentList(){
+        this.listeNoeudsSelection.clear();
+    }
+    
+    
     /**
      * permet de créer un noeud si il n'existe pas déjà
      * @param line
@@ -146,9 +153,11 @@ public class Graph extends JPanel{
             if (lien.getNomD().equals(noeud)) { //si le noeud de départ est le meme
                 System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
                 liste.add(lien.getNomA());
+                listeNoeudsSelection.add(lien.getNomA());
             } else if (lien.getNomA().equals(noeud)) {//si le noeud d'arrivé est le meme
                 System.out.println(lien.getNomD());//on affiche celui de départ
                 liste.add(lien.getNomD());
+                listeNoeudsSelection.add(lien.getNomD());
             }
         }
         return liste;
