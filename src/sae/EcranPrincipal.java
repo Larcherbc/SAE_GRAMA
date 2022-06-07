@@ -44,6 +44,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SAE GRAMA");
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         addComponentListener(new java.awt.event.ComponentAdapter() {
