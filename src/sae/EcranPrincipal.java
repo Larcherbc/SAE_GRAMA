@@ -83,6 +83,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         buttontall = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SAE GRAMA");
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setSize(new java.awt.Dimension(0, 0));
