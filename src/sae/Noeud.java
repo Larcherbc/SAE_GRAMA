@@ -50,7 +50,7 @@ public class Noeud {
 
     @Override
     public String toString() {
-        return "Noeud{" + "Nom=" + Nom + ", type=" + type + '}' + coord.x + " " + coord.y;
+        return "Nom=" + Nom + ", type=" + type + ", coord: " + coord.x + " " + coord.y;
     }
 
     public Point getCoord() {

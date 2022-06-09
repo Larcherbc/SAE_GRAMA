@@ -17,36 +17,61 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author p2102071
+ * @author Jules Rabec
  */
-public class Graph extends JPanel{
+public class Graph extends JPanel {
+
     private static Noeuds listeNoeuds;
     private static Noeuds listeNoeudsSelection;
+    private static Noeuds listeNoeudsHighlight;
     private static Liens listeLiens;
+    private static Liens listeLiensSelection;
+    private static Liens listeLiensHighlight;
+    private static Noeud currentNode;
+    private static Lien currentLien;
     EcranPrincipal fenetre;
     private final static int SIZE = 20;
-    private final static int DEFAULTWIDTH = 1100;
+    private final static int DEFAULTWIDTH = 900;
     private final static int DEFAULTHEIGHT = 500;
-    
-    public Graph(EcranPrincipal fenetre){
+
+    public Graph(EcranPrincipal fenetre) {
         this.fenetre = fenetre;
         this.listeNoeuds = new Noeuds();
         this.listeNoeudsSelection = new Noeuds();
+        this.listeNoeudsHighlight = new Noeuds();
         this.listeLiens = new Liens();
+        this.listeLiensSelection = new Liens();
+        this.listeLiensHighlight = new Liens();
+        this.currentNode = null;
+        this.currentLien = null;
     }
 
-    
-    
-    
-    
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         g.setColor(Color.black);
-        for(Lien obj : listeLiens){   
-           g.drawLine(obj.getNomA().getCoord().x, obj.getNomA().getCoord().y, obj.getNomD().getCoord().x, obj.getNomD().getCoord().y);  
+        for (Lien obj : listeLiensSelection) {
+            switch (obj.getType()){
+                case "A":
+                    g.setColor(Color.PINK);
+                    break;
+                case "N":
+                    g.setColor(Color.magenta);
+                    break;
+                case "D":
+                    g.setColor(Color.BLACK);
+                    break;
+            }
+            g.drawLine(obj.getNomA().getCoord().x, obj.getNomA().getCoord().y, obj.getNomD().getCoord().x, obj.getNomD().getCoord().y);
         }
-        g.setColor(Color.red);
-        for(Noeud obj : listeNoeuds){
+        g.setColor(Color.yellow);
+        for (Noeud obj : listeNoeudsHighlight) {
+            g.fillOval(obj.getCoord().x - (SIZE + 10) / 2, obj.getCoord().y + 6, SIZE + 10, SIZE / 2);
+        }
+        for (Lien obj : listeLiensHighlight) {
+            g.drawLine(obj.getNomA().getCoord().x, obj.getNomA().getCoord().y, obj.getNomD().getCoord().x, obj.getNomD().getCoord().y);
+        }
+
+        for (Noeud obj : listeNoeudsSelection) {
             switch (obj.getType()) {
                 case "R":
                     g.setColor(Color.blue);
@@ -55,18 +80,30 @@ public class Graph extends JPanel{
                     g.setColor(Color.red);
                     break;
                 case "L":
-                    g.setColor(Color.yellow);
+                    g.setColor(Color.green);
                     break;
                 default:
                     break;
             }
-            g.fillOval(obj.getCoord().x - SIZE/2, obj.getCoord().y - SIZE/2, SIZE, SIZE);
-            g.drawString(obj.getNom(), obj.getCoord().x-obj.getNom().length()/2*5, obj.getCoord().y + SIZE + 10);
+            g.fillOval(obj.getCoord().x - SIZE / 2, obj.getCoord().y - SIZE / 2, SIZE, SIZE);
+            if (listeNoeudsHighlight.contains(obj)) {
+                g.setColor(Color.yellow);
+            }
+            g.drawString(obj.getNom(), obj.getCoord().x - obj.getNom().length() / 2 * 5, obj.getCoord().y + SIZE + 10);
+
         }
+        g.setColor(Color.orange);
+        if (currentNode != null) {
+            g.fillOval(currentNode.getCoord().x - SIZE / 2, currentNode.getCoord().y - SIZE / 2, SIZE, SIZE);
+            g.drawString(currentNode.getNom(), currentNode.getCoord().x - currentNode.getNom().length() / 2 * 5, currentNode.getCoord().y + SIZE + 10);
+        }
+        if (currentLien != null) {
+            g.drawLine(currentLien.getNomA().getCoord().x, currentLien.getNomA().getCoord().y, currentLien.getNomD().getCoord().x, currentLien.getNomD().getCoord().y);
+        }
+
     }
-    
-    
-     /**
+
+    /**
      * permet de charger le graphe en mémoire
      */
     public void chargeGraph() {
@@ -88,44 +125,43 @@ public class Graph extends JPanel{
                     creationLien(lienSplit[0], noeudD, noeudA); // on créer le lien
                 }
             }
-            //fenetre.setSaveText("Le graph a bien été chargé en mémoire!!!");
+            fenetre.setJLabelGraph("Le graphe a bien été chargé");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (this.getWidth()==0) {
-            listeNoeuds.creationCoord(DEFAULTWIDTH,DEFAULTHEIGHT);
-        }else{
-            listeNoeuds.creationCoord(this.getWidth(),this.getHeight());
+        if (this.getWidth() == 0) {
+            listeNoeuds.creationCoord(DEFAULTWIDTH, DEFAULTHEIGHT);
+        } else {
+            listeNoeuds.creationCoord(this.getWidth(), this.getHeight());
         }
-        
+        defaultList();
+        fenetre.setJTextAreaData("NOEUDS :\n" + listeNoeudsSelection.afficherNoeuds() + "\n LIENS : \n" + listeLiensSelection.afficherLiens());
+        fenetre.setJTextAreaInfo(listeNoeudsSelection.afficherNombre() + "\n" + listeLiensSelection.afficherNombre());
     }
-    
-    public void emptyCurrentList(){
-        this.listeNoeudsSelection.clear();
-    }
-    
-    
+
     /**
      * permet de créer un noeud si il n'existe pas déjà
+     *
      * @param line
-     * @return 
+     * @return
      */
     public Noeud creationNoeud(String line) {
         String[] tabNoeud = line.split(","); // on split le début de la ligne pour créer un nv noeud
         Noeud nvNoeud = new Noeud(tabNoeud[1], tabNoeud[0]); // on le créer
         if (!listeNoeuds.contains(nvNoeud)) {//si il n'existe pas dans notre liste
             listeNoeuds.add(nvNoeud);// on l'ajoute
-        }else{
+        } else {
             nvNoeud = listeNoeuds.getNoeud(tabNoeud[1]);
         }
         return nvNoeud;
     }
-    
+
     /**
      * permet de créer un lien si il n'existe pas déjà
+     *
      * @param line
      * @param noeudD
-     * @param noeudA 
+     * @param noeudA
      */
     public void creationLien(String line, Noeud noeudD, Noeud noeudA) {
         String[] tabLien = line.split(",");//on split les deux caractéristique
@@ -136,37 +172,146 @@ public class Graph extends JPanel{
         }
     }
 
-    public void afficherNombre() {
-        listeNoeuds.afficherNombre();
-        listeLiens.afficherNombre();
+    public void emptyCurrentListNoeuds() {
+        Graph.listeNoeudsSelection.clear();
     }
-    
+
+    public void emptyCurrentListLiens() {
+        Graph.listeLiensSelection.clear();
+    }
+
+    public void defaultList() {
+        Graph.listeNoeudsSelection = (Noeuds) listeNoeuds.clone();
+        Graph.listeLiensSelection = (Liens) listeLiens.clone();
+    }
+
+    public void getCurrentLien(Liens listeDepart) {
+        Liens buffer = (Liens) listeLiensSelection.clone();
+        emptyCurrentListLiens();
+        for (Lien obj : buffer) {
+            if (listeNoeudsSelection.contains(obj.getNomA()) && listeNoeudsSelection.contains(obj.getNomD())) {
+                listeLiensSelection.add(obj);
+            }
+        }
+    }
+
+    public void getCurrentLien() {
+        emptyCurrentListLiens();
+        for (Lien obj : listeLiens) {
+            if (listeNoeudsSelection.contains(obj.getNomA()) && listeNoeudsSelection.contains(obj.getNomD())) {
+                listeLiensSelection.add(obj);
+            }
+        }
+    }
+
+    public void setSelectedData(String obj) {
+        listeNoeudsHighlight.clear();
+        currentNode = null;
+        currentLien = null;
+        if (obj == null) {
+            
+        } else {
+            if (obj.contains("from")) {
+                String buffer = obj.substring(obj.indexOf(": ") + 2, obj.indexOf(" to"));
+                obj = obj.substring(obj.indexOf(" to"));
+                String buffer2 = obj.substring(obj.indexOf(" : ") + 3);
+                Lien lien = listeLiensSelection.getLien(listeNoeudsSelection.getNoeud(buffer), listeNoeudsSelection.getNoeud(buffer2));
+                listeNoeudsHighlight.add(lien.getNomA());
+                listeNoeudsHighlight.add(lien.getNomD());
+                currentLien = lien;
+            } else {
+                Noeud noeud = listeNoeudsSelection.getNoeud(obj);
+                currentNode = noeud;
+                Noeuds test = afficheVoisinsDirect(noeud);
+
+            }
+
+        }
+        updateListeLiensHighlight();
+    }
+
+    public void setSelectedData() {
+        emptyCurrentListLiens();
+        emptyCurrentListNoeuds();
+        int test = fenetre.getSelectedData();
+        if (test >= 32) {
+            test -= 32;
+            listeLiensSelection.addDepart(listeLiens);
+        }
+        if (test >= 16) {
+            test -= 16;
+            listeLiensSelection.addNatio(listeLiens);
+        }
+        if (test >= 8) {
+            test -= 8;
+            listeLiensSelection.addAuto(listeLiens);
+        }
+        if (test >= 4) {
+            test -= 4;
+            listeNoeudsSelection.addLoisir(listeNoeuds);
+        }
+        if (test >= 2) {
+            test -= 2;
+            listeNoeudsSelection.addResto(listeNoeuds);
+        }
+        if (test >= 1) {
+            test -= 1;
+            listeNoeudsSelection.addLocalite(listeNoeuds);
+        }
+        getCurrentLien(listeLiensSelection);
+        fenetre.setJTextAreaData("NOEUDS :\n" + listeNoeudsSelection.afficherNoeuds() + "\n LIENS : \n" + listeLiensSelection.afficherLiens());
+        fenetre.setJTextAreaInfo(listeNoeudsSelection.afficherNombre() + "\n" + listeLiensSelection.afficherNombre());
+    }
+
+    public Noeuds getListeNoeudSelection() {
+        return listeNoeudsSelection;
+    }
+
+    public Liens getListeLiensSelection() {
+        return listeLiensSelection;
+    }
+
+    public void updateListeLiensHighlight() {
+        listeLiensHighlight.clear();
+        for (Lien obj : listeLiensSelection) {
+            if (obj.getNomA().equals(currentNode) && listeNoeudsSelection.contains(obj.getNomD())) {
+                listeLiensHighlight.add(obj);
+            } else if (obj.getNomD().equals(currentNode) && listeNoeudsSelection.contains(obj.getNomA())) {
+                listeLiensHighlight.add(obj);
+            }
+        }
+    }
+
     /**
-     * 
+     *
+     * @param noeud
      * @param obj
      * @return retourne une liste de noeuds qui sont les voisins direct
      */
     public Noeuds afficheVoisinsDirect(Noeud noeud) {
-        //Noeud obj = listeNoeuds.getNoeud(fenetre.getInput());
         Noeuds liste = new Noeuds();
         for (Lien lien : listeLiens) {//on parcourt tout les liens
             if (lien.getNomD().equals(noeud)) { //si le noeud de départ est le meme
-                System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
+                //System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
                 liste.add(lien.getNomA());
-                listeNoeudsSelection.add(lien.getNomA());
+                listeNoeudsHighlight.add(lien.getNomA());
+                //listeNoeudsSelection.add(lien.getNomA());
             } else if (lien.getNomA().equals(noeud)) {//si le noeud d'arrivé est le meme
-                System.out.println(lien.getNomD());//on affiche celui de départ
+                //System.out.println(lien.getNomD());//on affiche celui de départ
                 liste.add(lien.getNomD());
-                listeNoeudsSelection.add(lien.getNomD());
+                //listeNoeudsSelection.add(lien.getNomD());
+                listeNoeudsHighlight.add(lien.getNomD());
             }
         }
+        updateListeLiensHighlight();
         return liste;
     }
-    
+
     /**
      * permet de savoir si 2 noeuds sont situé a une 2 distance
+     *
      * @param depart
-     * @param arrive 
+     * @param arrive
      */
     public void afficheDeuxDistance(Noeud depart, Noeud arrive) {
         System.out.println(depart);
@@ -190,11 +335,12 @@ public class Graph extends JPanel{
             }
         }
     }
-    
+
     /**
      * compare l'ouverture de 2 villes
+     *
      * @param noeud1
-     * @param noeud2 
+     * @param noeud2
      */
     public void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
         System.out.println(noeud1);// affichage noeud de depart
@@ -221,19 +367,18 @@ public class Graph extends JPanel{
 
             if (nbVille1 > nbVille2) {// on compare
                 System.out.println(noeud1 + " est plus ouverte que " + noeud2);
-            }else if(nbVille1 < nbVille2){
+            } else if (nbVille1 < nbVille2) {
                 System.out.println(noeud2 + " est plus ouverte que " + noeud1);
-            }else{
+            } else {
                 System.out.println("les deux villes sont autant ouverte");
             }
             // faut juste ajoouter les autres
         }
     }
 
-    
     /**
-     * 
-     * @param noeud 
+     *
+     * @param noeud
      * @return liste de Noeud a 2 distance du noeud de départ
      */
     public Noeuds ouvertureNoeud(Noeud noeud) {
@@ -251,5 +396,3 @@ public class Graph extends JPanel{
         return listeVoisinDeuxD;// on renvoit la liste des voisins a 2 distance
     }
 }
-
-

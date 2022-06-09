@@ -26,7 +26,7 @@ public class Lien {
 
     @Override
     public String toString() {
-        return "Lien{" + "nomD=" + noeudD + ", nomA=" + noeudA + ", type=" + type + ", longueur=" + longueur + '}';
+        return "nomD=" + noeudD.getNom() + ", nomA=" + noeudA.getNom() + ", type=" + type + ", taille=" + longueur;
     }
 
     public Noeud getNomD() {

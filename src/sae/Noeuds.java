@@ -5,6 +5,8 @@
 package sae;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -28,6 +30,7 @@ public class Noeuds extends ArrayList<Noeud>{
             obj.setCoord(x, y);
         }
         testCoord(x, y);
+
     }
     
     public void testCoord(int x, int y){
@@ -80,13 +83,16 @@ public class Noeuds extends ArrayList<Noeud>{
         return compteur;
     }
     
-    public void afficherNoeuds(){
+    public String afficherNoeuds(){
+        String buffer ="";
         for(Noeud obj : this){
-            System.out.println(" - " + obj);
+            buffer+=obj.toString()+"\n";
         }
+        return buffer;
     }
     
-    public void afficherNombre(){
+    public String afficherNombre(){
+        String buffer="";
         int nbLocalite=0;
         int nbLoisir=0;
         int nbResto=0;
@@ -100,15 +106,40 @@ public class Noeuds extends ArrayList<Noeud>{
                 case "L":
                     nbLoisir++;
                     break;
-                case "resto":
+                case "R":
                     nbResto++;
                     break;
             }
         }
-        System.out.println("nombre de Noeuds :"+nbNoeuds);
-        System.out.println("nombre de localités :"+nbLocalite);
-        System.out.println("nombre de lieu de loisir :"+nbLoisir);
-        System.out.println("nombre de restaurant :"+nbResto);
+        buffer+= "nombre de Noeuds :"+nbNoeuds + "\n";
+        buffer += "nombre de localités :"+nbLocalite+ "\n";
+        buffer += "nombre de lieu de loisir :"+nbLoisir+ "\n";
+        buffer +="nombre de restaurant :"+nbResto + "\n";
+        return buffer;
+    }
+    
+    public void addLocalite(Noeuds liste){
+        for(Noeud obj : liste){
+            if(obj.getType().equals("V")){
+                this.add(obj);
+            }
+        }
+    }
+    
+    public void addResto(Noeuds liste){
+        for(Noeud obj : liste){
+            if(obj.getType().equals("R")){
+                this.add(obj);
+            }
+        }
+    }
+    
+    public void addLoisir(Noeuds liste){
+        for(Noeud obj : liste){
+            if(obj.getType().equals("L")){
+                this.add(obj);
+            }
+        }
     }
     
 }

@@ -36,10 +36,12 @@ public class Liens extends ArrayList<Lien>{
         }
     }
     
-    public void afficherLiens(){
+    public String afficherLiens(){
+        String buffer="";
         for(Lien obj : this){
-            System.out.println(" - " + obj);
+            buffer += obj.toString() +"\n";
         }
+        return buffer;
     }
     
     public Lien getLien(Noeud depart, Noeud arrive){
@@ -54,7 +56,8 @@ public class Liens extends ArrayList<Lien>{
         return recherche;
     }
     
-    public void afficherNombre(){
+    public String afficherNombre(){
+        String buffer ="";
         int nbAuto=0;
         int nbNatio=0;
         int nbDep=0;
@@ -73,10 +76,35 @@ public class Liens extends ArrayList<Lien>{
                     break;
             }  
         }
-        System.out.println("nombre de liens :"+nbLiens);
-        System.out.println("nombre d'autoroutes :"+nbAuto);
-        System.out.println("nombre de nationale :"+nbNatio);
-        System.out.println("nombre de départementales :"+nbDep);
+        buffer +="nombre de liens :"+nbLiens +"\n";
+        buffer +="nombre d'autoroutes :"+nbAuto+"\n";
+        buffer +="nombre de nationale :"+nbNatio+"\n";
+        buffer += "nombre de départementales :"+nbDep+"\n";
+        return buffer;
+    }
+    
+    public void addAuto(Liens liste){
+        for(Lien obj : liste){
+            if(obj.getType().equals("A")){
+                this.add(obj);
+            }
+        }
+    }
+    
+    public void addNatio(Liens liste){
+        for(Lien obj : liste){
+            if(obj.getType().equals("N")){
+                this.add(obj);
+            }
+        }
+    }
+    
+    public void addDepart(Liens liste){
+        for(Lien obj : liste){
+            if(obj.getType().equals("D")){
+                this.add(obj);
+            }
+        }
     }
     
 }
