@@ -27,7 +27,7 @@ public class Graph extends JPanel {
     private static Liens listeLiens;
     private static Liens listeLiensSelection;
     private static Liens listeLiensHighlight;
-    private static Noeud currentNode;
+    private static Noeuds currentNode;
     private static Lien currentLien;
     EcranPrincipal fenetre;
     private final static int SIZE = 20;
@@ -42,7 +42,7 @@ public class Graph extends JPanel {
         this.listeLiens = new Liens();
         this.listeLiensSelection = new Liens();
         this.listeLiensHighlight = new Liens();
-        this.currentNode = null;
+        this.currentNode = new Noeuds();
         this.currentLien = null;
     }
 
@@ -93,9 +93,11 @@ public class Graph extends JPanel {
 
         }
         g.setColor(Color.orange);
-        if (currentNode != null) {
-            g.fillOval(currentNode.getCoord().x - SIZE / 2, currentNode.getCoord().y - SIZE / 2, SIZE, SIZE);
-            g.drawString(currentNode.getNom(), currentNode.getCoord().x - currentNode.getNom().length() / 2 * 5, currentNode.getCoord().y + SIZE + 10);
+        if (currentNode.size() >= 1) {
+            for(Noeud obj : currentNode){
+                g.fillOval(obj.getCoord().x - SIZE / 2, obj.getCoord().y - SIZE / 2, SIZE, SIZE);
+            g.drawString(obj.getNom(), obj.getCoord().x - obj.getNom().length() / 2 * 5, obj.getCoord().y + SIZE + 10);
+            }
         }
         if (currentLien != null) {
             g.drawLine(currentLien.getNomA().getCoord().x, currentLien.getNomA().getCoord().y, currentLien.getNomD().getCoord().x, currentLien.getNomD().getCoord().y);
@@ -204,9 +206,22 @@ public class Graph extends JPanel {
         }
     }
 
+    public void setSelectedData(String obj, String obj2){
+        listeNoeudsHighlight.clear();
+        currentNode = new Noeuds();
+        currentLien = null;
+        Noeud noeud = listeNoeudsSelection.getNoeud(obj);
+        currentNode.add(noeud);
+        currentLien = null;
+        Noeud noeud2 = listeNoeudsSelection.getNoeud(obj2);
+        currentNode.add(noeud2);
+        afficheDeuxDistance(noeud, noeud2);
+        
+    }
+    
     public void setSelectedData(String obj) {
         listeNoeudsHighlight.clear();
-        currentNode = null;
+        currentNode = new Noeuds();
         currentLien = null;
         if (obj == null) {
             
@@ -221,7 +236,7 @@ public class Graph extends JPanel {
                 currentLien = lien;
             } else {
                 Noeud noeud = listeNoeudsSelection.getNoeud(obj);
-                currentNode = noeud;
+                currentNode.add(noeud);
                 Noeuds test = afficheVoisinsDirect(noeud);
 
             }
@@ -274,9 +289,9 @@ public class Graph extends JPanel {
     public void updateListeLiensHighlight() {
         listeLiensHighlight.clear();
         for (Lien obj : listeLiensSelection) {
-            if (obj.getNomA().equals(currentNode) && listeNoeudsSelection.contains(obj.getNomD())) {
+            if (currentNode.contains(obj.getNomA()) && listeNoeudsSelection.contains(obj.getNomD())) {
                 listeLiensHighlight.add(obj);
-            } else if (obj.getNomD().equals(currentNode) && listeNoeudsSelection.contains(obj.getNomA())) {
+            } else if (currentNode.contains(obj.getNomD()) && listeNoeudsSelection.contains(obj.getNomA())) {
                 listeLiensHighlight.add(obj);
             }
         }
@@ -314,25 +329,33 @@ public class Graph extends JPanel {
      * @param arrive
      */
     public void afficheDeuxDistance(Noeud depart, Noeud arrive) {
-        System.out.println(depart);
-        System.out.println(arrive);
         Lien lien1;
         Lien lien2;
         ArrayList<Noeud> voisinDirect = afficheVoisinsDirect(depart);
         for (Noeud noeud : voisinDirect) {
             ArrayList<Noeud> voisin2 = afficheVoisinsDirect(noeud);
+            listeLiensHighlight.clear();
+            listeNoeudsHighlight.clear();
             if (noeud.equals(arrive)) {
-                System.out.println("les deux noeud sont relié directement");
-                //on peut rajouter un break si on veux arreter la recherche ici
+                fenetre.setDeuxDistanceTexte("les deux noeud sont relié directement");
+                System.out.println(currentNode);
+                listeLiensHighlight.add(listeLiensSelection.getLien(depart, arrive));
+                return;
             }
             for (Noeud noeud2 : voisin2) {
                 if (noeud2.equals(arrive)) {
                     lien1 = listeLiens.getLien(depart, noeud);
                     lien2 = listeLiens.getLien(noeud, arrive);
                     int distance = lien1.getLongueur() + lien2.getLongueur();
-                    System.out.println("les 2 noeuds sont rélié et sont séparé de " + distance + " km en passant par " + noeud);
+                    listeLiensHighlight.add(lien2);
+                    listeLiensHighlight.add(lien1);
+                    listeNoeudsHighlight.add(noeud);
+                    fenetre.setDeuxDistanceTexte("les 2 noeuds sont rélié et sont séparé de " + distance + " km en passant par " + noeud.getNom());
+                    return;
                 }
             }
+            
+            
         }
     }
 

@@ -21,7 +21,8 @@ public class EcranPrincipal extends javax.swing.JFrame {
         initComponents();
         graph.chargeGraph();
         this.add(graph);
-        initComboBox();
+        initComboBoxNAndL();
+        initComboBoxN();
         graph.setSelectedData(null);
         
                 
@@ -55,6 +56,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         panel0Distance = new javax.swing.JPanel();
         title0Distance = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -63,16 +65,22 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jCheckBox4 = new javax.swing.JCheckBox();
         jCheckBox5 = new javax.swing.JCheckBox();
         jCheckBox6 = new javax.swing.JCheckBox();
-        jPanel3 = new javax.swing.JPanel();
         jTextAreaInfo = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaData = new javax.swing.JTextArea();
         panel1Distance = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel6 = new javax.swing.JPanel();
         panel2Distance = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         panelMoreDistance = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         cardButtonPanel = new javax.swing.JPanel();
@@ -85,7 +93,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAE GRAMA");
         setMinimumSize(new java.awt.Dimension(1200, 600));
-        setPreferredSize(new java.awt.Dimension(1200, 600));
+        setPreferredSize(new java.awt.Dimension(1300, 700));
         setSize(new java.awt.Dimension(0, 0));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -93,7 +101,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
             }
         });
 
-        sidePanel.setMinimumSize(new java.awt.Dimension(300, 100));
+        sidePanel.setPreferredSize(new java.awt.Dimension(320, 10));
         sidePanel.setLayout(new java.awt.BorderLayout());
 
         cardPanel.setMinimumSize(new java.awt.Dimension(200, 100));
@@ -102,6 +110,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
 
         panelAccueil.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
+        jPanel5.setPreferredSize(new java.awt.Dimension(310, 247));
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -164,6 +173,8 @@ public class EcranPrincipal extends javax.swing.JFrame {
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
+
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel1.setText("afficher sur le graphe :");
@@ -223,9 +234,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         });
         jPanel2.add(jCheckBox6);
 
-        jPanel1.add(jPanel2);
-
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
+        jPanel3.add(jPanel2);
 
         jTextAreaInfo.setColumns(20);
         jTextAreaInfo.setRows(5);
@@ -261,45 +270,105 @@ public class EcranPrincipal extends javax.swing.JFrame {
         });
         jComboBox1.setSelectedItem(null);
 
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 63, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        panel1Distance.add(jPanel7);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panel1Distance.add(jPanel6);
+
+        cardPanel.add(panel1Distance, "panel1Distance");
+
+        panel2Distance.setLayout(new javax.swing.BoxLayout(panel2Distance, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("2-Distance");
+        panel2Distance.add(jLabel13);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jComboBox1.setSelectedItem(null);
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
+        jComboBox1.setSelectedItem(null);
+
+        jButton2.setText("vérifier");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(0, 215, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        panel1Distance.add(jPanel4);
-
-        cardPanel.add(panel1Distance, "panel1Distance");
-
-        jLabel4.setText("2-Distance");
-
-        javax.swing.GroupLayout panel2DistanceLayout = new javax.swing.GroupLayout(panel2Distance);
-        panel2Distance.setLayout(panel2DistanceLayout);
-        panel2DistanceLayout.setHorizontalGroup(
-            panel2DistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2DistanceLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel2DistanceLayout.setVerticalGroup(
-            panel2DistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2DistanceLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel4)
-                .addContainerGap(207, Short.MAX_VALUE))
-        );
+        panel2Distance.add(jPanel4);
 
         cardPanel.add(panel2Distance, "panel2Distance");
 
@@ -319,7 +388,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
             .addGroup(panelMoreDistanceLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jLabel5)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardPanel.add(panelMoreDistance, "panelMoreDistance");
@@ -388,17 +457,23 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private void button1DistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1DistanceActionPerformed
         CardLayout layout = (CardLayout)cardPanel.getLayout();
         layout.show(cardPanel, "panel1Distance");
-        initComboBox();
+        initComboBoxNAndL();
+        this.repaint();
     }//GEN-LAST:event_button1DistanceActionPerformed
 
     private void button2DistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2DistanceActionPerformed
         CardLayout layout = (CardLayout)cardPanel.getLayout();
         layout.show(cardPanel, "panel2Distance");
+        initComboBoxN();
+        graph.setSelectedData(null);
+        this.repaint();
     }//GEN-LAST:event_button2DistanceActionPerformed
 
     private void buttontallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttontallActionPerformed
         CardLayout layout = (CardLayout)cardPanel.getLayout();
         layout.show(cardPanel, "panelMoreDistance");
+        graph.setSelectedData(null);
+        this.repaint();
     }//GEN-LAST:event_buttontallActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -447,8 +522,34 @@ public class EcranPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAccueilActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        graph.chargeGraph();
         this.repaint();
+        jCheckBox1.setSelected(true);
+        jCheckBox2.setSelected(true);
+        jCheckBox3.setSelected(true);
+        jCheckBox4.setSelected(true);
+        jCheckBox5.setSelected(true);
+        jCheckBox6.setSelected(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(jComboBox2.getSelectedItem()!=null && jComboBox3.getSelectedItem()!=null){
+            if(jComboBox3.getSelectedItem()!= jComboBox2.getSelectedItem()){
+                graph.setSelectedData((String)jComboBox2.getSelectedItem(),(String)jComboBox3.getSelectedItem());
+            }else{
+                jTextArea1.setText("les noeuds choisis sont les mêmes");
+            }
+        }
+        this.repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -521,7 +622,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jTextAreaData.setText(text);
     }
     
-    private void initComboBox(){
+    private void initComboBoxNAndL(){
         jComboBox1.removeAllItems();
         Noeuds noeuds = graph.getListeNoeudSelection();
         for(Noeud obj : noeuds){
@@ -531,6 +632,22 @@ public class EcranPrincipal extends javax.swing.JFrame {
             jComboBox1.addItem("from : "+ obj.getNomA().getNom() + " to : "+obj.getNomD().getNom());
         }
     }
+    private void initComboBoxN(){
+        jComboBox2.removeAllItems();
+        jComboBox3.removeAllItems();
+        Noeuds noeuds = graph.getListeNoeudSelection();
+        for(Noeud obj : noeuds){
+            jComboBox2.addItem(obj.getNom());
+            jComboBox3.addItem(obj.getNom());
+        }
+        jComboBox3.setSelectedIndex(1);
+    }
+    
+    
+    public void setDeuxDistanceTexte(String texte){
+        jTextArea1.setText(texte);
+    }
+    
     
     Graph graph = new Graph(this);
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -542,6 +659,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel cardButtonPanel;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
@@ -549,13 +667,15 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -567,9 +687,13 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextAreaData;
     private javax.swing.JTextArea jTextAreaInfo;
     private javax.swing.JPanel panel0Distance;
