@@ -81,14 +81,13 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        panelMoreDistance = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         cardButtonPanel = new javax.swing.JPanel();
         buttonAccueil = new javax.swing.JButton();
         button0Distance = new javax.swing.JButton();
         button1Distance = new javax.swing.JButton();
         button2Distance = new javax.swing.JButton();
-        buttontall = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAE GRAMA");
@@ -135,11 +134,11 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jPanel5.add(jLabel9);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel11.setText("Rose = Autoroute");
+        jLabel11.setText("Magenta = Autoroute");
         jPanel5.add(jLabel11);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel12.setText("Magenta = Nationale");
+        jLabel12.setText("Rose = Nationale");
         jPanel5.add(jLabel12);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -341,6 +340,10 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -351,8 +354,9 @@ public class EcranPrincipal extends javax.swing.JFrame {
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,33 +369,14 @@ public class EcranPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         panel2Distance.add(jPanel4);
 
         cardPanel.add(panel2Distance, "panel2Distance");
-
-        jLabel5.setText(">=2-Distance");
-
-        javax.swing.GroupLayout panelMoreDistanceLayout = new javax.swing.GroupLayout(panelMoreDistance);
-        panelMoreDistance.setLayout(panelMoreDistanceLayout);
-        panelMoreDistanceLayout.setHorizontalGroup(
-            panelMoreDistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMoreDistanceLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelMoreDistanceLayout.setVerticalGroup(
-            panelMoreDistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMoreDistanceLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        cardPanel.add(panelMoreDistance, "panelMoreDistance");
 
         sidePanel.add(cardPanel, java.awt.BorderLayout.CENTER);
 
@@ -429,14 +414,6 @@ public class EcranPrincipal extends javax.swing.JFrame {
         });
         cardButtonPanel.add(button2Distance);
 
-        buttontall.setText(">= 2 distance");
-        buttontall.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttontallActionPerformed(evt);
-            }
-        });
-        cardButtonPanel.add(buttontall);
-
         getContentPane().add(cardButtonPanel, java.awt.BorderLayout.PAGE_END);
 
         pack();
@@ -468,13 +445,6 @@ public class EcranPrincipal extends javax.swing.JFrame {
         graph.setSelectedData(null);
         this.repaint();
     }//GEN-LAST:event_button2DistanceActionPerformed
-
-    private void buttontallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttontallActionPerformed
-        CardLayout layout = (CardLayout)cardPanel.getLayout();
-        layout.show(cardPanel, "panelMoreDistance");
-        graph.setSelectedData(null);
-        this.repaint();
-    }//GEN-LAST:event_buttontallActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         graph.setSelectedData();
@@ -546,6 +516,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
                 graph.setSelectedData((String)jComboBox2.getSelectedItem(),(String)jComboBox3.getSelectedItem());
             }else{
                 jTextArea1.setText("les noeuds choisis sont les mêmes");
+                jTextArea2.setText("");
             }
         }
         this.repaint();
@@ -647,6 +618,9 @@ public class EcranPrincipal extends javax.swing.JFrame {
     public void setDeuxDistanceTexte(String texte){
         jTextArea1.setText(texte);
     }
+    public void setOuvertureTexte(String texte){
+        jTextArea2.setText(texte);
+    }
     
     
     Graph graph = new Graph(this);
@@ -655,7 +629,6 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton button1Distance;
     private javax.swing.JButton button2Distance;
     private javax.swing.JButton buttonAccueil;
-    private javax.swing.JButton buttontall;
     private javax.swing.JPanel cardButtonPanel;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JButton jButton1;
@@ -676,7 +649,6 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -691,16 +663,17 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextAreaData;
     private javax.swing.JTextArea jTextAreaInfo;
     private javax.swing.JPanel panel0Distance;
     private javax.swing.JPanel panel1Distance;
     private javax.swing.JPanel panel2Distance;
     private javax.swing.JPanel panelAccueil;
-    private javax.swing.JPanel panelMoreDistance;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JLabel title0Distance;
     // End of variables declaration//GEN-END:variables

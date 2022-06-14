@@ -215,8 +215,8 @@ public class Graph extends JPanel {
         currentLien = null;
         Noeud noeud2 = listeNoeudsSelection.getNoeud(obj2);
         currentNode.add(noeud2);
+        comparaisonNoeud(noeud, noeud2);
         afficheDeuxDistance(noeud, noeud2);
-        
     }
     
     public void setSelectedData(String obj) {
@@ -300,7 +300,6 @@ public class Graph extends JPanel {
     /**
      *
      * @param noeud
-     * @param obj
      * @return retourne une liste de noeuds qui sont les voisins direct
      */
     public Noeuds afficheVoisinsDirect(Noeud noeud) {
@@ -338,7 +337,6 @@ public class Graph extends JPanel {
             listeNoeudsHighlight.clear();
             if (noeud.equals(arrive)) {
                 fenetre.setDeuxDistanceTexte("les deux noeud sont relié directement");
-                System.out.println(currentNode);
                 listeLiensHighlight.add(listeLiensSelection.getLien(depart, arrive));
                 return;
             }
@@ -366,10 +364,9 @@ public class Graph extends JPanel {
      * @param noeud2
      */
     public void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
-        System.out.println(noeud1);// affichage noeud de depart
-        System.out.println(noeud2);
+        String buffer = "";
         if (!noeud1.getType().equals("V") || !noeud2.getType().equals("V")) {//si un des noeuds n'est pas une ville
-            System.out.println("un des deux noeuds n'est pas une ville");
+            buffer = "un des deux noeuds n'est pas une ville";
         } else {
             int nbVille1;
             int nbVille2;
@@ -389,14 +386,30 @@ public class Graph extends JPanel {
             nbLoisir2 = listeOuverture2.afficherLoisir();
 
             if (nbVille1 > nbVille2) {// on compare
-                System.out.println(noeud1 + " est plus ouverte que " + noeud2);
+                buffer += noeud1.getNom() + " est plus ouverte que " + noeud2.getNom() + "\n";
             } else if (nbVille1 < nbVille2) {
-                System.out.println(noeud2 + " est plus ouverte que " + noeud1);
+                buffer += noeud2.getNom() + " est plus ouverte que " + noeud1.getNom() + "\n";
             } else {
-                System.out.println("les deux villes sont autant ouverte");
+                buffer += "les deux villes sont autant ouverte";
             }
-            // faut juste ajoouter les autres
+            if (nbResto1 > nbResto2) {// on compare
+                buffer += noeud1.getNom() + " est plus gastronomique que " + noeud2.getNom() + "\n";
+            } else if (nbVille1 < nbVille2) {
+                buffer += noeud2.getNom() + " est plus gastronomique que " + noeud1.getNom() + "\n";
+            } else {
+                buffer += "les deux villes sont autant gastronomique \n";
+            }
+            if (nbLoisir1 > nbLoisir2) {// on compare
+                buffer += noeud1.getNom() + " est plus culturelle que " + noeud2.getNom();
+            } else if (nbVille1 < nbVille2) {
+                buffer += noeud2.getNom() + " est plus culturelle que " + noeud1.getNom();
+            } else {
+                buffer += "les deux villes sont autant culturelle";
+            }
         }
+        fenetre.setOuvertureTexte(buffer);
+        listeNoeudsHighlight.clear();
+        listeLiensHighlight.clear();
     }
 
     /**

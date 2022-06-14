@@ -10,11 +10,16 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
- *
- * @author jules
+ * Cette classe est une arrayList de {@link Noeud}. Elle permet d'effectuer différente action sur les noeuds qu'elle contient
+ * @author Jules Rabec
  */
 public class Noeuds extends ArrayList<Noeud>{
     
+    /**
+     * Renvoie le noeud correspondant au nom passer en paramètre, null s'il n'exitste pas
+     * @param name Correspond au nom du noeud qu'on cherche
+     * @return retourne le Noeud chercher
+     */
     public Noeud getNoeud(String name){
         Noeud noeud = null;
         for(Noeud obj :this){
@@ -25,6 +30,11 @@ public class Noeuds extends ArrayList<Noeud>{
         return noeud;
     }
     
+    /**
+     * Appel la methode {@link Noeud#setCoord(int, int) setCoord} pour chaque noeud contenu dans l'arrayList puis appel la methode {@link #testCoord(int, int) TestCoord}
+     * @param x correspond a la largeur max a laquelle le Noeud peut apparaitre
+     * @param y correspond a la hauteur max a laquelle le Noeud peut apparaitre
+     */
     public void creationCoord(int x, int y){
         for(Noeud obj : this){
             obj.setCoord(x, y);
@@ -33,6 +43,11 @@ public class Noeuds extends ArrayList<Noeud>{
 
     }
     
+    /**
+     * appel la methode {@link #isFarAwayFromAll(sae.Noeud)} pour chaque noeud contenu dans l'arrayList
+     * @param x correspond a la largeur max a laquelle le Noeud peut apparaitre
+     * @param y correspond a la hauteur max a laquelle le Noeud peut apparaitre
+     */
     public void testCoord(int x, int y){
         for(Noeud obj : this){
             while(! isFarAwayFromAll(obj)){
@@ -41,6 +56,11 @@ public class Noeuds extends ArrayList<Noeud>{
         }
     }
     
+    /**
+     * Permet de vérifier si le noeud passer en paramètre n'est pas trop proche de tout les autres noeuds contenu dans l'arrayList
+     * @param noeud Correspond au noeud auquelle on va comparer tout les autres
+     * @return Retourne true si le noeud passé en paramètre est assez loin de tout les autres, false sinon
+     */
     public boolean isFarAwayFromAll(Noeud noeud){
         boolean statut = true;
         for(Noeud obj : this){
@@ -50,6 +70,10 @@ public class Noeuds extends ArrayList<Noeud>{
         return statut;
     }
     
+    /**
+     * Renvoie le nombre de ville contenu dans l'arrayList
+     * @return Retourne le nombre de ville contenu dans l'arrayList
+     */
     public int afficherLocalite(){
         int compteur = 0;
         for(Noeud obj : this){
@@ -61,6 +85,10 @@ public class Noeuds extends ArrayList<Noeud>{
         return compteur;
     }
     
+    /**
+     * Renvoie le nombre de restaurent contenu dans l'arrayList
+     * @return Retourne le nombre de restaurent contenu dans l'arrayList
+     */
     public int afficherRestaurent(){
         int compteur = 0;
         for(Noeud obj : this){
@@ -72,6 +100,10 @@ public class Noeuds extends ArrayList<Noeud>{
         return compteur;
     }
     
+    /**
+     * Renvoie le nombre de lieu de loisir contenu dans l'arrayList
+     * @return Retourne le nombre de lieu de loisir contenu dans l'arrayList
+     */
     public int afficherLoisir(){
         int compteur = 0;
         for(Noeud obj : this){
@@ -83,6 +115,10 @@ public class Noeuds extends ArrayList<Noeud>{
         return compteur;
     }
     
+    /**
+     * Renvoie une chaine de texte qui contient tout les noeuds
+     * @return Retourne une chaine de texte qui contient tout les noeuds
+     */
     public String afficherNoeuds(){
         String buffer ="";
         for(Noeud obj : this){
@@ -91,6 +127,10 @@ public class Noeuds extends ArrayList<Noeud>{
         return buffer;
     }
     
+    /**
+     * Renvoie une chaine de texte qui contient le nombre de type de noeud
+     * @return Retourne une chaine de texte qui contient le nombre de type de noeud
+     */
     public String afficherNombre(){
         String buffer="";
         int nbLocalite=0;
@@ -118,6 +158,10 @@ public class Noeuds extends ArrayList<Noeud>{
         return buffer;
     }
     
+    /**
+     * Permet d'ajouter a l'arrayList les villes contenu dans une arrayList passé en paramètre
+     * @param liste Correspond a une arrayList a laquelle on veut copier les villes
+     */
     public void addLocalite(Noeuds liste){
         for(Noeud obj : liste){
             if(obj.getType().equals("V")){
@@ -126,6 +170,10 @@ public class Noeuds extends ArrayList<Noeud>{
         }
     }
     
+    /**
+     * Permet d'ajouter a l'arrayList les restaurent contenu dans une arrayList passé en paramètre
+     * @param liste Correspond a une arrayList a laquelle on veut copier les restaurent
+     */
     public void addResto(Noeuds liste){
         for(Noeud obj : liste){
             if(obj.getType().equals("R")){
@@ -134,6 +182,10 @@ public class Noeuds extends ArrayList<Noeud>{
         }
     }
     
+    /**
+     * Permet d'ajouter a l'arrayList les villes contenu dans une arrayList passé en paramètre
+     * @param liste Correspond a une arrayList a laquelle on veut copier les lieu de loisir
+     */
     public void addLoisir(Noeuds liste){
         for(Noeud obj : liste){
             if(obj.getType().equals("L")){
