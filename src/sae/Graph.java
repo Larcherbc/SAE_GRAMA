@@ -377,12 +377,12 @@ public class Graph extends JPanel {
 
             Noeuds listeOuverture1 = ouvertureNoeud(noeud1);// on récupère une liste de nooeuds qui sont a une 2 distance
             nbVille1 = listeOuverture1.afficherLocalite(); // on récupère le noombre de ville
-            nbResto1 = listeOuverture1.afficherRestaurent();
+            nbResto1 = listeOuverture1.afficherRestaurant();
             nbLoisir1 = listeOuverture1.afficherLoisir();
 
             Noeuds listeOuverture2 = ouvertureNoeud(noeud2);
             nbVille2 = listeOuverture2.afficherLocalite();
-            nbResto2 = listeOuverture2.afficherRestaurent();
+            nbResto2 = listeOuverture2.afficherRestaurant();
             nbLoisir2 = listeOuverture2.afficherLoisir();
 
             if (nbVille1 > nbVille2) {// on compare

@@ -86,10 +86,10 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Renvoie le nombre de restaurent contenu dans l'arrayList
-     * @return Retourne le nombre de restaurent contenu dans l'arrayList
+     * Renvoie le nombre de restaurant contenu dans l'arrayList
+     * @return Retourne le nombre de restaurant contenu dans l'arrayList
      */
-    public int afficherRestaurent(){
+    public int afficherRestaurant(){
         int compteur = 0;
         for(Noeud obj : this){
             if(obj.getType().equals("R")){
@@ -171,8 +171,8 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Permet d'ajouter a l'arrayList les restaurent contenu dans une arrayList passé en paramètre
-     * @param liste Correspond a une arrayList a laquelle on veut copier les restaurent
+     * Permet d'ajouter a l'arrayList les restaurant contenu dans une arrayList passé en paramètre
+     * @param liste Correspond a une arrayList a laquelle on veut copier les restaurant
      */
     public void addResto(Noeuds liste){
         for(Noeud obj : liste){
