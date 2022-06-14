@@ -5,6 +5,8 @@
  */
 package sae;
 
+import ressource.Noeuds;
+import ressource.Liens;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
@@ -15,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import ressource.TypeLien;
+import ressource.TypeNoeud;
 
 /**
  *Cette classe est la classe principale qui permet de créer le graphe et d'effectuer des actions dessus
@@ -61,13 +65,13 @@ public class Graph extends JPanel {
         g.setColor(Color.black);
         for (Lien obj : listeLiensSelection) {
             switch (obj.getType()){
-                case "A":
+                case AUTOROUTE:
                     g.setColor(Color.PINK);
                     break;
-                case "N":
+                case NATIONALE:
                     g.setColor(Color.magenta);
                     break;
-                case "D":
+                case DEPARTEMENTALE:
                     g.setColor(Color.BLACK);
                     break;
             }
@@ -83,13 +87,13 @@ public class Graph extends JPanel {
 
         for (Noeud obj : listeNoeudsSelection) {
             switch (obj.getType()) {
-                case "R":
+                case RESTO:
                     g.setColor(Color.blue);
                     break;
-                case "V":
+                case VILLE:
                     g.setColor(Color.red);
                     break;
-                case "L":
+                case LOISIR:
                     g.setColor(Color.green);
                     break;
                 default:
@@ -159,7 +163,19 @@ public class Graph extends JPanel {
      */
     public Noeud creationNoeud(String line) {
         String[] tabNoeud = line.split(","); // on split le début de la ligne pour créer un nv noeud
-        Noeud nvNoeud = new Noeud(tabNoeud[1], tabNoeud[0]); // on le créer
+        TypeNoeud type = null;
+        switch (tabNoeud[0]) {
+            case "V":
+                type = TypeNoeud.VILLE;
+                break;
+            case "R":
+                type = TypeNoeud.RESTO;
+                break;
+            case "L":
+                type = TypeNoeud.LOISIR;
+                break;
+        }
+        Noeud nvNoeud = new Noeud(tabNoeud[1], type); // on le créer
         if (!listeNoeuds.contains(nvNoeud)) {//si il n'existe pas dans notre liste
             listeNoeuds.add(nvNoeud);// on l'ajoute
         } else {
@@ -178,7 +194,19 @@ public class Graph extends JPanel {
     public void creationLien(String line, Noeud noeudD, Noeud noeudA) {
         String[] tabLien = line.split(",");//on split les deux caractéristique
         int longueur = Integer.parseInt(tabLien[1]);// on convertit en int la longeur
-        Lien nvLien = new Lien(noeudD, noeudA, tabLien[0], longueur);//on créer le nouveau lien
+        TypeLien type = null;
+        switch(tabLien[0]){
+            case "A":
+                type = TypeLien.AUTOROUTE;
+                break;
+            case "N":
+                type = TypeLien.NATIONALE;
+                break;
+            case "D":
+                type = TypeLien.DEPARTEMENTALE;
+                break;
+        }
+        Lien nvLien = new Lien(noeudD, noeudA, type, longueur);//on créer le nouveau lien
         if (!listeLiens.contains(nvLien)) {//si le lien n'existe pas dans notre liste
             listeLiens.add(nvLien);//on l'ajoute
         }
@@ -284,7 +312,6 @@ public class Graph extends JPanel {
             listeNoeudsSelection.addResto(listeNoeuds);
         }
         if (test >= 1) {
-            test -= 1;
             listeNoeudsSelection.addLocalite(listeNoeuds);
         }
         getCurrentLien();
@@ -391,7 +418,7 @@ public class Graph extends JPanel {
      */
     public void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
         String buffer = "";
-        if (!noeud1.getType().equals("V") || !noeud2.getType().equals("V")) {//si un des noeuds n'est pas une ville
+        if (!noeud1.getType().equals(TypeNoeud.VILLE) || !noeud2.getType().equals(TypeNoeud.VILLE)) {//si un des noeuds n'est pas une ville
             buffer = "un des deux noeuds n'est pas une ville";
         } else {
             int nbVille1;

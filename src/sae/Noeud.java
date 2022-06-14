@@ -7,6 +7,7 @@ package sae;
 import java.awt.Point;
 import java.util.Objects;
 import java.util.Random;
+import ressource.TypeNoeud;
 
 /**
  * Cette classe permet de définir ce qu'est un noeud. Un noeud possède un nom, un type et est associé a un point pour pouvoir être placer dans une fenetre
@@ -18,11 +19,11 @@ public class Noeud {
     /**
      * Correspond au nom du noeud
      */
-    private String Nom;
+    private final String Nom;
     /**
      * Correspond au type du noeud
      */
-    private String type;
+    private final TypeNoeud type;
     /**
      * Correspond au point où se situe le noeud
      */
@@ -33,7 +34,7 @@ public class Noeud {
      * @param Nom Correspond au nom du noeud
      * @param type Correspond au type du noeud
      */
-    public Noeud(String Nom, String type) {
+    public Noeud(String Nom, TypeNoeud type) {
         this.Nom = Nom;
         this.type = type;
     }
@@ -107,7 +108,7 @@ public class Noeud {
      * Renvoie le type du noeud
      * @return Retourne le type du noeud
      */
-    public String getType() {
+    public TypeNoeud getType() {
         return type;
     }
 

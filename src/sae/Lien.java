@@ -5,26 +5,27 @@
 package sae;
 
 import java.util.Objects;
+import ressource.TypeLien;
 
 /**
- *Cette classe permet définir ce qu'est un lien. Un lien possède un {@link Noeud} de départ, un {@link Noeud} d'arrivée, un type et une longueur
- * @author jules
+ *Cette classe permet définir ce qu'est un lien. Un lien possède un {@link Noeud} de départ, un {@link Noeud} d'arrivée, un {@link TypeLien type} et une longueur
+ * @author jules Rabec
  */
 public class Lien {
     
     private final Noeud noeudD;
     private final Noeud noeudA;
-    private final String type;
+    private final TypeLien type;
     private final int longueur;
 
     /**
-     * permet de créer un lien qui part d'un noeud puis arrive a un autre noeud, a un type et une longueur.
-     * @param noeudD Correspond au noeud de départ
-     * @param noeudA Correspond au noeud d'arrivée
-     * @param type Correspond au type du lien
+     * permet de créer un lien qui part d'un {@link Noeud} puis arrive a un autre {@link Noeud}, a un {@link TypeLien type} et une longueur.
+     * @param noeudD Correspond au {@link Noeud} de départ
+     * @param noeudA Correspond au {@link Noeud} d'arrivée
+     * @param type Correspond au {@link TypeLien type} du lien
      * @param longueur Correspond a la longueur du lien
      */
-    public Lien(Noeud noeudD, Noeud noeudA, String type, int longueur) {
+    public Lien(Noeud noeudD, Noeud noeudA, TypeLien type, int longueur) {
         this.noeudD = noeudD;
         this.noeudA = noeudA;
         this.type = type;
@@ -41,26 +42,26 @@ public class Lien {
     }
 
     /**
-     * Renvoie le noeud de départ
-     * @return Retourne le noeud de départ
+     * Renvoie le {@link Noeud} de départ
+     * @return Retourne le {@link Noeud} de départ
      */
     public Noeud getNomD() {
         return noeudD;
     }
     
     /**
-     * Renvoie le noeud d'arrivée
-     * @return Retourne le noeud d'arrivée
+     * Renvoie le {@link Noeud} d'arrivée
+     * @return Retourne le {@link Noeud} d'arrivée
      */
     public Noeud getNomA() {
         return noeudA;
     }
 
     /**
-     * Renvoie le type du lien
-     * @return Retourne le type du lien
+     * Renvoie le {@link TypeLien type} du lien
+     * @return Retourne le {@link TypeLien type} du lien
      */
-    public String getType() {
+    public TypeLien getType() {
         return type;
     }
 

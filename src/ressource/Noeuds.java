@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sae;
+package ressource;
 
 import java.util.ArrayList;
+import sae.Noeud;
 
 /**
  * Cette classe est une {@link ArrayList} de {@link Noeud}. Elle permet d'effectuer différente action sur les noeuds qu'elle contient
@@ -16,13 +17,14 @@ public class Noeuds extends ArrayList<Noeud>{
     /**
      * permet de créer une arrayList de {@link Noeud}
      */
-    Noeuds(){
+    public Noeuds(){
         super();
     }
     /**
      * permet de créer une arrayList de {@link Noeud} avec un noeud de base
+     * @param noeud correspond au noeud a ajouter dans l'arraylist
      */
-    Noeuds(Noeud noeud){
+    public Noeuds(Noeud noeud){
         super();
         this.add(noeud);
     }
@@ -86,14 +88,13 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Renvoie le nombre de ville contenu dans {@link Noeuds l'arrayList de noeuds}
-     * @return Retourne le nombre de ville contenu dans {@link Noeuds l'arrayList de noeuds}
+     * Renvoie le nombre de {@link TypeNoeud#VILLE ville} contenu dans {@link Noeuds l'arrayList de noeuds}
+     * @return Retourne le nombre de {@link TypeNoeud#VILLE ville} contenu dans {@link Noeuds l'arrayList de noeuds}
      */
     public int afficherLocalite(){
         int compteur = 0;
         for(Noeud obj : this){
-            if(obj.getType().equals("V")){
-                System.out.println(obj);
+            if(obj.getType().equals(TypeNoeud.VILLE)){
                 compteur++;
             }
         }
@@ -101,14 +102,13 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Renvoie le nombre de restaurant contenu dans {@link Noeuds l'arrayList de noeuds}
-     * @return Retourne le nombre de restaurant contenu dans {@link Noeuds l'arrayList de noeuds}
+     * Renvoie le nombre de {@link TypeNoeud#RESTO restaurant} contenu dans {@link Noeuds l'arrayList de noeuds}
+     * @return Retourne le nombre de {@link TypeNoeud#RESTO restaurant} contenu dans {@link Noeuds l'arrayList de noeuds}
      */
     public int afficherRestaurant(){
         int compteur = 0;
         for(Noeud obj : this){
-            if(obj.getType().equals("R")){
-                System.out.println(obj);
+            if(obj.getType().equals(TypeNoeud.RESTO)){
                 compteur++;
             }
         }
@@ -116,14 +116,13 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Renvoie le nombre de lieu de loisir contenu dans {@link Noeuds l'arrayList de noeuds}
-     * @return Retourne le nombre de lieu de loisir contenu dans {@link Noeuds l'arrayList de noeuds}
+     * Renvoie le nombre de {@link TypeNoeud#LOISIR lieu de loisir} contenu dans {@link Noeuds l'arrayList de noeuds}
+     * @return Retourne le nombre de {@link TypeNoeud#LOISIR lieu de loisir} contenu dans {@link Noeuds l'arrayList de noeuds}
      */
     public int afficherLoisir(){
         int compteur = 0;
         for(Noeud obj : this){
-            if(obj.getType().equals("L")){
-                System.out.println(obj);
+            if(obj.getType().equals(TypeNoeud.LOISIR)){
                 compteur++;
             }
         }
@@ -143,8 +142,8 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Renvoie {@link String une chaine de texte} qui contient le nombre de type de chaque {@link Noeud noeud}
-     * @return Retourne {@link String une chaine de texte} qui contient le nombre de type de {@link Noeud noeud}
+     * Renvoie {@link String une chaine de texte} qui contient le nombre de chaque {@link Noeud noeud} en fonction de leur {@link TypeNoeud type}
+     * @return Retourne {@link String une chaine de texte} qui contient le nombre de chaque {@link Noeud noeud} en fonction de leur {@link TypeNoeud type}
      */
     public String afficherNombre(){
         String buffer="";
@@ -155,13 +154,13 @@ public class Noeuds extends ArrayList<Noeud>{
         for(Noeud obj : this){
             nbNoeuds++;
             switch (obj.getType()){
-                case "V":
+                case VILLE:
                     nbLocalite++;
                     break;
-                case "L":
+                case LOISIR:
                     nbLoisir++;
                     break;
-                case "R":
+                case RESTO:
                     nbResto++;
                     break;
             }
@@ -174,36 +173,36 @@ public class Noeuds extends ArrayList<Noeud>{
     }
     
     /**
-     * Permet d'ajouter a l'arrayList les villes contenu dans une arrayList de noeud passés en paramètre
-     * @param liste Correspond a une arrayList de noeud a laquelle on veut copier les noeuds qui sont des villes
+     * Permet d'ajouter a l'arrayList les {@link TypeNoeud#VILLE villes} contenu dans une arrayList de noeud passés en paramètre
+     * @param liste Correspond a une arrayList de noeud a laquelle on veut copier les noeuds qui sont des {@link TypeNoeud#VILLE villes}
      */
     public void addLocalite(Noeuds liste){
         for(Noeud obj : liste){
-            if(obj.getType().equals("V")){
+            if(obj.getType().equals(TypeNoeud.VILLE)){
                 this.add(obj);
             }
         }
     }
     
     /**
-     * Permet d'ajouter a l'arrayList les restaurant contenu dans une arrayList de noeud passés en paramètre
-     * @param liste Correspond a une arrayList de noeud a laquelle on veut copier les noeuds qui sont des restaurants
+     * Permet d'ajouter a l'arrayList les {@link TypeNoeud#RESTO restaurants} contenu dans une arrayList de noeud passés en paramètre
+     * @param liste Correspond a une arrayList de noeud a laquelle on veut copier les noeuds qui sont des {@link TypeNoeud#RESTO restaurants}
      */
     public void addResto(Noeuds liste){
         for(Noeud obj : liste){
-            if(obj.getType().equals("R")){
+            if(obj.getType().equals(TypeNoeud.RESTO)){
                 this.add(obj);
             }
         }
     }
     
     /**
-     * Permet d'ajouter a l'arrayList les lieux de loisir contenu dans une arrayList de noeud passés en paramètre
-     * @param liste Correspond a une arrayList de noeud a laquelle on veut copier les noeuds qui sont des lieux de loisir
+     * Permet d'ajouter a l'arrayList les {@link TypeNoeud#LOISIR lieux de loisir} contenu dans une arrayList de noeud passés en paramètre
+     * @param liste Correspond a une arrayList de noeud a laquelle on veut copier les noeuds qui sont des {@link TypeNoeud#LOISIR lieux de loisir}
      */
     public void addLoisir(Noeuds liste){
         for(Noeud obj : liste){
-            if(obj.getType().equals("L")){
+            if(obj.getType().equals(TypeNoeud.LOISIR)){
                 this.add(obj);
             }
         }

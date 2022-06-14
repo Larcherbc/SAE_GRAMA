@@ -2,20 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sae;
+package ressource;
 
 import java.util.ArrayList;
+import sae.Lien;
+import sae.Noeud;
 
 /**
  *Cette classe est une {@link ArrayList} de {@link Lien}. Elle permet d'effectuer différente action sur les liens qu'elle contient
- * @author jules
+ * @author jules Rabec
  */
 public class Liens extends ArrayList<Lien>{
     
     /**
      * permet de créer une arrayList de lien
      */
-    Liens(){
+    public Liens(){
         super();
     }
     
@@ -50,8 +52,8 @@ public class Liens extends ArrayList<Lien>{
     }
     
     /**
-     * Renvoie un {@link String} qui contient le nombre de chaque type de lien contenue dans l'arrayList
-     * @return Retourne un {@link String} qui contient le nombre de chaque type de lien dans l'arrayList
+     * Renvoie un {@link String} qui contient le nombre de chaque {@link TypeLien type} de lien contenue dans l'arrayList
+     * @return Retourne un {@link String} qui contient le nombre de chaque {@link TypeLien type} de lien dans l'arrayList
      */
     public String afficherNombre(){
         String buffer ="";
@@ -62,13 +64,13 @@ public class Liens extends ArrayList<Lien>{
         for(Lien obj : this){
           nbLiens++;
             switch (obj.getType()){
-                case "A":
+                case AUTOROUTE:
                     nbAuto++;
                     break;
-                case "N":
+                case NATIONALE:
                     nbNatio++;
                     break;
-                case "D":
+                case DEPARTEMENTALE:
                     nbDep++;
                     break;
             }  
@@ -82,36 +84,36 @@ public class Liens extends ArrayList<Lien>{
     
     
     /**
-     * Permet d'ajouter a l'arrayList les autoroutes contenu dans une arrayList de lien passée en paramètre
-     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des autoroutes
+     * Permet d'ajouter a l'arrayList les {@link TypeLien#AUTOROUTE autoroutes} contenu dans une arrayList de lien passée en paramètre
+     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des {@link TypeLien#AUTOROUTE autoroutes}
      */
     public void addAuto(Liens liste){
         for(Lien obj : liste){
-            if(obj.getType().equals("A")){
+            if(obj.getType().equals(TypeLien.AUTOROUTE)){
                 this.add(obj);
             }
         }
     }
     
     /**
-     * Permet d'ajouter a l'arrayList les nationales contenu dans une arrayList de lien passée en paramètre
-     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des nationales
+     * Permet d'ajouter a l'arrayList les {@link TypeLien#NATIONALE nationales} contenu dans une arrayList de lien passée en paramètre
+     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des {@link TypeLien#NATIONALE nationale}
      */
     public void addNatio(Liens liste){
         for(Lien obj : liste){
-            if(obj.getType().equals("N")){
+            if(obj.getType().equals(TypeLien.NATIONALE)){
                 this.add(obj);
             }
         }
     }
     
     /**
-     * Permet d'ajouter a l'arrayList les départementales contenu dans une arrayList de lien passée en paramètre
-     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des départementales
+     * Permet d'ajouter a l'arrayList les {@link TypeLien#DEPARTEMENTALE départementales} contenu dans une arrayList de lien passée en paramètre
+     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des {@link TypeLien#DEPARTEMENTALE départementales}
      */
     public void addDepart(Liens liste){
         for(Lien obj : liste){
-            if(obj.getType().equals("D")){
+            if(obj.getType().equals(TypeLien.DEPARTEMENTALE)){
                 this.add(obj);
             }
         }
