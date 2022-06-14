@@ -7,47 +7,71 @@ package sae;
 import java.util.Objects;
 
 /**
- *
+ *Cette classe permet définir ce qu'est un lien. Un lien possède un {@link Noeud} de départ, un {@link Noeud} d'arrivée, un type et une longueur
  * @author jules
  */
 public class Lien {
     
-    private Noeud noeudD;
-    private Noeud noeudA;
-    private String type;
-    private int longueur;
+    private final Noeud noeudD;
+    private final Noeud noeudA;
+    private final String type;
+    private final int longueur;
 
+    /**
+     * permet de créer un lien qui part d'un noeud puis arrive a un autre noeud, a un type et une longueur.
+     * @param noeudD Correspond au noeud de départ
+     * @param noeudA Correspond au noeud d'arrivée
+     * @param type Correspond au type du lien
+     * @param longueur Correspond a la longueur du lien
+     */
     public Lien(Noeud noeudD, Noeud noeudA, String type, int longueur) {
         this.noeudD = noeudD;
         this.noeudA = noeudA;
         this.type = type;
         this.longueur = longueur;
     }
-
+    
+    /**
+     * Renvoie une chaine de caratères avec toute les infos du liens
+     * @return Retourne une chaine de caratères avec toute les infos du liens
+     */
     @Override
     public String toString() {
         return "nomD=" + noeudD.getNom() + ", nomA=" + noeudA.getNom() + ", type=" + type + ", taille=" + longueur;
     }
 
+    /**
+     * Renvoie le noeud de départ
+     * @return Retourne le noeud de départ
+     */
     public Noeud getNomD() {
         return noeudD;
     }
-
+    
+    /**
+     * Renvoie le noeud d'arrivée
+     * @return Retourne le noeud d'arrivée
+     */
     public Noeud getNomA() {
         return noeudA;
     }
 
+    /**
+     * Renvoie le type du lien
+     * @return Retourne le type du lien
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Renvoie la longueur du lien
+     * @return Retourne la longueur du lien
+     */
     public int getLongueur() {
         return longueur;
     }
     
-    public void afficheInfo(){
-        System.out.println("Ce lien relie le " + this.getNomD() + "et le " + this.getNomD());
-    }
     
     @Override
     public int hashCode() {

@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
+ *Cette classe est la classe principale qui permet de créer le graphe et d'effectuer des actions dessus
  * @author Jules Rabec
  */
 public class Graph extends JPanel {
@@ -34,18 +35,27 @@ public class Graph extends JPanel {
     private final static int DEFAULTWIDTH = 900;
     private final static int DEFAULTHEIGHT = 500;
 
+    
+    /**
+     * Permet de créer un graph a partir d'une fenetre {@link JFrame} passé en paramètre
+     * @param fenetre correspond a la fenetre lié au graphe qui permet d'interagir avec elle
+     */
     public Graph(EcranPrincipal fenetre) {
         this.fenetre = fenetre;
-        this.listeNoeuds = new Noeuds();
-        this.listeNoeudsSelection = new Noeuds();
-        this.listeNoeudsHighlight = new Noeuds();
-        this.listeLiens = new Liens();
-        this.listeLiensSelection = new Liens();
-        this.listeLiensHighlight = new Liens();
-        this.currentNode = new Noeuds();
-        this.currentLien = null;
+        Graph.listeNoeuds = new Noeuds();
+        Graph.listeNoeudsSelection = new Noeuds();
+        Graph.listeNoeudsHighlight = new Noeuds();
+        Graph.listeLiens = new Liens();
+        Graph.listeLiensSelection = new Liens();
+        Graph.listeLiensHighlight = new Liens();
+        Graph.currentNode = new Noeuds();
+        Graph.currentLien = null;
     }
 
+    /**
+     * Permet de dessiner le graphe. Cette méthode va utiliser les attributs de la classe {@link Graph} qui sont différentes {@link ArrayList} qui contiennent des noeuds ou des liens qui vont être peint différement selon les {@link ArrayList} auxquelles ils appartiennent
+     * @param g correspond au peintre qui va dessiner le graphe
+     */
     @Override
     public void paintComponent(Graphics g) {
         g.setColor(Color.black);
@@ -106,7 +116,7 @@ public class Graph extends JPanel {
     }
 
     /**
-     * permet de charger le graphe en mémoire
+     * Permet de charger le graph en mémoire a partir d'un csv
      */
     public void chargeGraph() {
         Noeud noeudD;
@@ -142,10 +152,10 @@ public class Graph extends JPanel {
     }
 
     /**
-     * permet de créer un noeud si il n'existe pas déjà
+     * permet de créer un {@link Noeud} si il n'existe pas déjà puis de le renvoyer ou de renvoyer le noeud existant qui correspond aux infos de la ligne
      *
-     * @param line
-     * @return
+     * @param line Correspond a une partie de ligne du fichier csv qui nous intéresse pour créer un noeud
+     * @return Retourne le {@link Noeud} qui a été créer ou le {@link Noeud} existant qui correspond aux infos de la ligne
      */
     public Noeud creationNoeud(String line) {
         String[] tabNoeud = line.split(","); // on split le début de la ligne pour créer un nv noeud
@@ -159,11 +169,11 @@ public class Graph extends JPanel {
     }
 
     /**
-     * permet de créer un lien si il n'existe pas déjà
+     * permet de créer un lien si il n'existe pas déjà a partir des infos contenue dans la partie de ligne passé en paramètre et des noeuds de départ et d'arrivé
      *
-     * @param line
-     * @param noeudD
-     * @param noeudA
+     * @param line correspond a une partie de ligne du fichier csv qui nous intéresse pour créer un lien
+     * @param noeudD correspond au noeud de départ du lien
+     * @param noeudA correspond au noeud d'arrivé du lien
      */
     public void creationLien(String line, Noeud noeudD, Noeud noeudA) {
         String[] tabLien = line.split(",");//on split les deux caractéristique
@@ -174,20 +184,32 @@ public class Graph extends JPanel {
         }
     }
 
+    /**
+     * Permet de vider la liste de {@link Noeud} selectionnée
+     */
     public void emptyCurrentListNoeuds() {
         Graph.listeNoeudsSelection.clear();
     }
 
+    /**
+     * Permet de vider la liste de {@link Lien} selectionnée
+     */
     public void emptyCurrentListLiens() {
         Graph.listeLiensSelection.clear();
     }
 
+    /**
+     * Permet de copier les {@link Noeud} et {@link Lien} de base dans des arrayList qui nous donne les {@link Noeud} et {@link Lien} selectionnés
+     */
     public void defaultList() {
         Graph.listeNoeudsSelection = (Noeuds) listeNoeuds.clone();
         Graph.listeLiensSelection = (Liens) listeLiens.clone();
     }
 
-    public void getCurrentLien(Liens listeDepart) {
+    /**
+     * Permet de garder dans {@link #listeLiensSelection} uniquement les liens qui ont un {@link Noeud} de départ et un {@link Noeud} d'arrivé qui sont selectionnés
+     */
+    public void getCurrentLien() {
         Liens buffer = (Liens) listeLiensSelection.clone();
         emptyCurrentListLiens();
         for (Lien obj : buffer) {
@@ -197,14 +219,6 @@ public class Graph extends JPanel {
         }
     }
 
-    public void getCurrentLien() {
-        emptyCurrentListLiens();
-        for (Lien obj : listeLiens) {
-            if (listeNoeudsSelection.contains(obj.getNomA()) && listeNoeudsSelection.contains(obj.getNomD())) {
-                listeLiensSelection.add(obj);
-            }
-        }
-    }
 
     public void setSelectedData(String obj, String obj2){
         listeNoeudsHighlight.clear();
@@ -273,19 +287,30 @@ public class Graph extends JPanel {
             test -= 1;
             listeNoeudsSelection.addLocalite(listeNoeuds);
         }
-        getCurrentLien(listeLiensSelection);
+        getCurrentLien();
         fenetre.setJTextAreaData("NOEUDS :\n" + listeNoeudsSelection.afficherNoeuds() + "\n LIENS : \n" + listeLiensSelection.afficherLiens());
         fenetre.setJTextAreaInfo(listeNoeudsSelection.afficherNombre() + "\n" + listeLiensSelection.afficherNombre());
     }
 
+    /**
+     * Renvoie la liste de {@link Noeud} selectionné
+     * @return Retourne la liste de {@link Noeud} selectionné
+     */
     public Noeuds getListeNoeudSelection() {
         return listeNoeudsSelection;
     }
 
+    /**
+     * Renvoie la liste de {@link Lien} selectionné
+     * @return Retourne la liste de {@link Lien} selectionné
+     */
     public Liens getListeLiensSelection() {
         return listeLiensSelection;
     }
 
+    /**
+     * Permet de mettre a jour la liste des {@link Lien} a dessiner d'une couleur différente a partir du {@link Noeud} actuellement selectionné
+     */
     public void updateListeLiensHighlight() {
         listeLiensHighlight.clear();
         for (Lien obj : listeLiensSelection) {
@@ -298,13 +323,13 @@ public class Graph extends JPanel {
     }
 
     /**
-     *
-     * @param noeud
-     * @return retourne une liste de noeuds qui sont les voisins direct
+     * Renvoie une {@link Noeuds liste de noeud} qui correspond a tout les voisins direct du {@link Noeud} passé en paramètre
+     * @param noeud Correspond au {@link Noeud} de départ des tests pour trouver ses voisins
+     * @return retourne une {@link Noeuds liste de noeud} qui sont les voisins direct du {@link Noeud} de départ donnée en paramètre
      */
     public Noeuds afficheVoisinsDirect(Noeud noeud) {
         Noeuds liste = new Noeuds();
-        for (Lien lien : listeLiens) {//on parcourt tout les liens
+        for (Lien lien : listeLiensSelection) {//on parcourt tout les liens
             if (lien.getNomD().equals(noeud)) { //si le noeud de départ est le meme
                 //System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
                 liste.add(lien.getNomA());
@@ -322,10 +347,10 @@ public class Graph extends JPanel {
     }
 
     /**
-     * permet de savoir si 2 noeuds sont situé a une 2 distance
+     * permet de savoir si deux {@link Noeud noeuds} passé en paramètre sont situé relié par un chemin constitué de deux {@link Lien liens}
      *
-     * @param depart
-     * @param arrive
+     * @param depart correspond au {@link Noeud} de départ du chemin potentiellement existant
+     * @param arrive correspond au {@link Noeud} d'arrivé
      */
     public void afficheDeuxDistance(Noeud depart, Noeud arrive) {
         Lien lien1;
@@ -336,7 +361,7 @@ public class Graph extends JPanel {
             listeLiensHighlight.clear();
             listeNoeudsHighlight.clear();
             if (noeud.equals(arrive)) {
-                fenetre.setDeuxDistanceTexte("les deux noeud sont relié directement");
+                fenetre.setDeuxDistanceTexte("Les deux noeud sont relié directement");
                 listeLiensHighlight.add(listeLiensSelection.getLien(depart, arrive));
                 return;
             }
@@ -348,20 +373,21 @@ public class Graph extends JPanel {
                     listeLiensHighlight.add(lien2);
                     listeLiensHighlight.add(lien1);
                     listeNoeudsHighlight.add(noeud);
-                    fenetre.setDeuxDistanceTexte("les 2 noeuds sont rélié et sont séparé de " + distance + " km en passant par " + noeud.getNom());
+                    fenetre.setDeuxDistanceTexte("Les deux noeuds sont rélié et sont séparé de " + distance + " km en passant par " + noeud.getNom());
                     return;
                 }
             }
             
             
         }
+        fenetre.setDeuxDistanceTexte("Les deux noeuds ne sont pas relié");
     }
 
     /**
-     * compare l'ouverture de 2 villes
+     * Permet de comparer l'ouverture de 2 villes qui sont des {@link Noeud noeuds} cad laquelle des deux est rélié a un plus grand nombre d'autre {@link Noeud Noeuds}
      *
-     * @param noeud1
-     * @param noeud2
+     * @param noeud1 correspond au premier {@link Noeud}  pour la comparaison
+     * @param noeud2 correspond au deuxième {@link Noeud} pour la comparaison
      */
     public void comparaisonNoeud(Noeud noeud1, Noeud noeud2) {
         String buffer = "";
@@ -413,9 +439,9 @@ public class Graph extends JPanel {
     }
 
     /**
-     *
-     * @param noeud
-     * @return liste de Noeud a 2 distance du noeud de départ
+     * Renvoie une {@link Noeuds arrayList de noeuds} qui contient tout les noeuds situé a une 2-distance du {@link Noeud} de départ donnée en paramètre
+     * @param noeud correspond au {@link Noeud} de départ
+     * @return une {@link Noeuds arrayList de noeuds} qui contient tout les noeuds situé a une 2-distance du {@link Noeud} de départ donnée en paramètre
      */
     public Noeuds ouvertureNoeud(Noeud noeud) {
         Noeuds listeVoisinDeuxD = new Noeuds();// on créé une liste de noeuds

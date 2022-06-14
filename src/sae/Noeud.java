@@ -7,7 +7,6 @@ package sae;
 import java.awt.Point;
 import java.util.Objects;
 import java.util.Random;
-import javax.swing.JPanel;
 
 /**
  * Cette classe permet de définir ce qu'est un noeud. Un noeud possède un nom, un type et est associé a un point pour pouvoir être placer dans une fenetre
@@ -81,7 +80,10 @@ public class Noeud {
 
     @Override
     public String toString() {
-        return "Nom=" + Nom + ", type=" + type + ", coord: " + coord.x + " " + coord.y;
+        if(this.coord!=null){
+            return "Nom=" + Nom + ", type=" + type + ", coord: " + coord.x + " " + coord.y;
+        }
+        return "Nom=" + Nom + ", type=" + type;
     }
     
     

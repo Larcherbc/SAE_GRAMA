@@ -6,10 +6,11 @@
 package sae;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 /**
- *
+ * Correspond a la fenetre de l'IHM
  * @author Jules Rabec
  */
 public class EcranPrincipal extends javax.swing.JFrame {
@@ -79,6 +80,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -239,7 +241,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jTextAreaInfo.setRows(5);
         jTextAreaInfo.setText("info");
         jTextAreaInfo.setMaximumSize(new java.awt.Dimension(2147483647, 300));
-        jTextAreaInfo.setPreferredSize(new java.awt.Dimension(224, 160));
+        jTextAreaInfo.setPreferredSize(new java.awt.Dimension(224, 170));
         jPanel3.add(jTextAreaInfo);
 
         jTextAreaData.setColumns(20);
@@ -336,13 +338,19 @@ public class EcranPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.PAGE_AXIS));
+
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jPanel8.add(jScrollPane1);
+
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane3.setViewportView(jTextArea2);
+
+        jPanel8.add(jScrollPane3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -350,13 +358,12 @@ public class EcranPrincipal extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox3, 0, 300, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox2, 0, 300, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,10 +375,8 @@ public class EcranPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         panel2Distance.add(jPanel4);
@@ -533,7 +538,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -559,10 +564,18 @@ public class EcranPrincipal extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Permet de set le texte d'un {@link JLabel} pour indiquer si le graphe c'est chargé correctement
+     * @param text correspond au texte a afficher sur l'ihm 
+     */
     public void setJLabelGraph(String text){
         jLabelGraph.setText(text);
     }
     
+    /**
+     * Renvoie un nombre qui correspond aux différentes cases selectionnées
+     * @return Retourne un nombre qui correspond aux différentes cases selectionnées
+     */
     public int getSelectedData(){
         int selectedData =0;
         if(jCheckBox1.isSelected()){
@@ -586,13 +599,25 @@ public class EcranPrincipal extends javax.swing.JFrame {
         return selectedData;
     }
     
+    /**
+     * Permet de set le texte d'une {@link JTextArea} pour afficher les informations du graphe
+     * @param text correspond au texte a afficher sur l'ihm 
+     */
     public void setJTextAreaInfo(String text){
         jTextAreaInfo.setText(text);
     }
+    
+    /**
+     * Permet de set le texte d'une {@link JTextArea} pour afficher les noeuds et liens du graphe
+     * @param text correspond au texte a afficher sur l'ihm 
+     */
     public void setJTextAreaData(String text){
         jTextAreaData.setText(text);
     }
     
+    /**
+     * permet de remplir une combobox avec les noeuds et les liens
+     */
     private void initComboBoxNAndL(){
         jComboBox1.removeAllItems();
         Noeuds noeuds = graph.getListeNoeudSelection();
@@ -603,6 +628,9 @@ public class EcranPrincipal extends javax.swing.JFrame {
             jComboBox1.addItem("from : "+ obj.getNomA().getNom() + " to : "+obj.getNomD().getNom());
         }
     }
+    /**
+     * permet de remplir une combobox avec des noeuds seulement
+     */
     private void initComboBoxN(){
         jComboBox2.removeAllItems();
         jComboBox3.removeAllItems();
@@ -614,12 +642,19 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jComboBox3.setSelectedIndex(1);
     }
     
-    
-    public void setDeuxDistanceTexte(String texte){
-        jTextArea1.setText(texte);
+    /**
+     * Permet de set le texte d'un {@link JLabel} pour indiquer si deux noeuds sont situés a une 2-distance
+     * @param text correspond au texte a afficher sur l'ihm 
+     */
+    public void setDeuxDistanceTexte(String text){
+        jTextArea1.setText(text);
     }
-    public void setOuvertureTexte(String texte){
-        jTextArea2.setText(texte);
+    /**
+     * Permet de set le texte d'un {@link JLabel} pour indiquer la comparaison d'ouverture de deux noeuds
+     * @param text correspond au texte a afficher sur l'ihm 
+     */
+    public void setOuvertureTexte(String text){
+        jTextArea2.setText(text);
     }
     
     
@@ -661,6 +696,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

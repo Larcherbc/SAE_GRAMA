@@ -7,35 +7,22 @@ package sae;
 import java.util.ArrayList;
 
 /**
- *
+ *Cette classe est une {@link ArrayList} de {@link Lien}. Elle permet d'effectuer différente action sur les liens qu'elle contient
  * @author jules
  */
 public class Liens extends ArrayList<Lien>{
     
-    public void afficherAutoroute(){
-        for(Lien obj : this){
-            if(obj.getType().equals("A")){
-                System.out.println(obj);
-            }
-        }
+    /**
+     * permet de créer une arrayList de lien
+     */
+    Liens(){
+        super();
     }
     
-    public void afficherNationale(){
-        for(Lien obj : this){
-            if(obj.getType().equals("N")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
-    public void afficherDepartementale(){
-        for(Lien obj : this){
-            if(obj.getType().equals("D")){
-                System.out.println(obj);
-            }
-        }
-    }
-    
+    /**
+     * Renvoie un {@link String} qui contient toute les infos de tout les noeuds
+     * @return Retourne un {@link String} qui contient toute les infos de tout les liens
+     */
     public String afficherLiens(){
         String buffer="";
         for(Lien obj : this){
@@ -44,6 +31,12 @@ public class Liens extends ArrayList<Lien>{
         return buffer;
     }
     
+    /**
+     * Renvoie un {@link Lien} contenu dans la liste qui a comme point de départ et point d'arrivée les {@link Noeud} donnée en paramètre, null sinon
+     * @param depart Correspond au noeud de départ du lien chercher
+     * @param arrive Correspond au noeud d'arrivée du lien chercher
+     * @return Renvoie un {@link Lien} qui a comme point de départ et point d'arrivée les {@link Noeud} donnée en paramètre, null sinon
+     */
     public Lien getLien(Noeud depart, Noeud arrive){
         Lien recherche = null;
         for(Lien obj : this){
@@ -56,6 +49,10 @@ public class Liens extends ArrayList<Lien>{
         return recherche;
     }
     
+    /**
+     * Renvoie un {@link String} qui contient le nombre de chaque type de lien contenue dans l'arrayList
+     * @return Retourne un {@link String} qui contient le nombre de chaque type de lien dans l'arrayList
+     */
     public String afficherNombre(){
         String buffer ="";
         int nbAuto=0;
@@ -83,6 +80,11 @@ public class Liens extends ArrayList<Lien>{
         return buffer;
     }
     
+    
+    /**
+     * Permet d'ajouter a l'arrayList les autoroutes contenu dans une arrayList de lien passée en paramètre
+     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des autoroutes
+     */
     public void addAuto(Liens liste){
         for(Lien obj : liste){
             if(obj.getType().equals("A")){
@@ -91,6 +93,10 @@ public class Liens extends ArrayList<Lien>{
         }
     }
     
+    /**
+     * Permet d'ajouter a l'arrayList les nationales contenu dans une arrayList de lien passée en paramètre
+     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des nationales
+     */
     public void addNatio(Liens liste){
         for(Lien obj : liste){
             if(obj.getType().equals("N")){
@@ -99,6 +105,10 @@ public class Liens extends ArrayList<Lien>{
         }
     }
     
+    /**
+     * Permet d'ajouter a l'arrayList les départementales contenu dans une arrayList de lien passée en paramètre
+     * @param liste Correspond a une arrayList de lien a laquelle on veut copier les liens qui sont des départementales
+     */
     public void addDepart(Liens liste){
         for(Lien obj : liste){
             if(obj.getType().equals("D")){
