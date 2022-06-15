@@ -82,7 +82,7 @@ public class Noeud {
     @Override
     public String toString() {
         if(this.coord!=null){
-            return "Nom=" + Nom + ", type=" + type + ", coord: " + coord.x + " " + coord.y;
+            return "Nom=" + Nom + ", type=" + type + ", coord: x=" + coord.x + " y=" + coord.y;
         }
         return "Nom=" + Nom + ", type=" + type;
     }

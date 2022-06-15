@@ -241,37 +241,44 @@ public class Graph extends JPanel {
         }
     }
 
-
-    public void setSelectedData(String obj, String obj2){
+    /**
+     * Permet de selectionner deux {@link Noeud noeuds} a partir d'infos contenu dans des {@link String chaines de caratères} donné en paramètre
+     * @param string correspond aux infos du premier {@link Noeud}
+     * @param string2 correspond aux infos du deuxième {@link Noeud}
+     */
+    public void setSelectedData(String string, String string2){
         listeNoeudsHighlight.clear();
         currentNode = new Noeuds();
-        currentLien = null;
-        Noeud noeud = listeNoeudsSelection.getNoeud(obj);
+        Noeud noeud = listeNoeudsSelection.getNoeud(string);
         currentNode.add(noeud);
         currentLien = null;
-        Noeud noeud2 = listeNoeudsSelection.getNoeud(obj2);
+        Noeud noeud2 = listeNoeudsSelection.getNoeud(string2);
         currentNode.add(noeud2);
         comparaisonNoeud(noeud, noeud2);
         afficheDeuxDistance(noeud, noeud2);
     }
     
-    public void setSelectedData(String obj) {
+    /**
+     * Permet de selectionner un noeud ou un lien
+     * @param string correspond a une chaine de caratère qui contient des infos sur un noeud ou un lien
+     */
+    public void setSelectedData(String string) {
         listeNoeudsHighlight.clear();
         currentNode = new Noeuds();
         currentLien = null;
-        if (obj == null) {
+        if (string == null) {
             
         } else {
-            if (obj.contains("from")) {
-                String buffer = obj.substring(obj.indexOf(": ") + 2, obj.indexOf(" to"));
-                obj = obj.substring(obj.indexOf(" to"));
-                String buffer2 = obj.substring(obj.indexOf(" : ") + 3);
+            if (string.contains("from")) {
+                String buffer = string.substring(string.indexOf(": ") + 2, string.indexOf(" to"));
+                string = string.substring(string.indexOf(" to"));
+                String buffer2 = string.substring(string.indexOf(" : ") + 3);
                 Lien lien = listeLiensSelection.getLien(listeNoeudsSelection.getNoeud(buffer), listeNoeudsSelection.getNoeud(buffer2));
                 listeNoeudsHighlight.add(lien.getNomA());
                 listeNoeudsHighlight.add(lien.getNomD());
                 currentLien = lien;
             } else {
-                Noeud noeud = listeNoeudsSelection.getNoeud(obj);
+                Noeud noeud = listeNoeudsSelection.getNoeud(string);
                 currentNode.add(noeud);
                 Noeuds test = afficheVoisinsDirect(noeud);
 
@@ -281,6 +288,9 @@ public class Graph extends JPanel {
         updateListeLiensHighlight();
     }
 
+    /**
+     * Permet de mettre a jour la liste des noeuds et liens selectionnés à partir des case a cocher selectionnés
+     */
     public void setSelectedData() {
         emptyCurrentListLiens();
         emptyCurrentListNoeuds();
@@ -355,11 +365,9 @@ public class Graph extends JPanel {
                 //System.out.println(lien.getNomA());// on affiche le noeud d'arrivé
                 liste.add(lien.getNomA());
                 listeNoeudsHighlight.add(lien.getNomA());
-                //listeNoeudsSelection.add(lien.getNomA());
             } else if (lien.getNomA().equals(noeud)) {//si le noeud d'arrivé est le meme
                 //System.out.println(lien.getNomD());//on affiche celui de départ
                 liste.add(lien.getNomD());
-                //listeNoeudsSelection.add(lien.getNomD());
                 listeNoeudsHighlight.add(lien.getNomD());
             }
         }

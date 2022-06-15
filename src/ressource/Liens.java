@@ -28,7 +28,7 @@ public class Liens extends ArrayList<Lien>{
     public String afficherLiens(){
         String buffer="";
         for(Lien obj : this){
-            buffer += obj.toString() +"\n";
+            buffer += obj.toString() +"\n\n";
         }
         return buffer;
     }

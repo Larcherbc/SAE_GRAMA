@@ -26,6 +26,8 @@ public class EcranPrincipal extends javax.swing.JFrame {
         initComboBoxNAndL();
         initComboBoxN();
         graph.setSelectedData(null);
+        initJTextArea();
+        
         
                 
     }
@@ -349,6 +351,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
+        jTextArea2.setWrapStyleWord(true);
         jScrollPane3.setViewportView(jTextArea2);
 
         jPanel8.add(jScrollPane3);
@@ -449,6 +452,8 @@ public class EcranPrincipal extends javax.swing.JFrame {
         layout.show(cardPanel, "panel2Distance");
         initComboBoxN();
         graph.setSelectedData(null);
+        jTextArea1.setText("");
+        jTextArea2.setText("");
         this.repaint();
     }//GEN-LAST:event_button2DistanceActionPerformed
 
@@ -641,6 +646,15 @@ public class EcranPrincipal extends javax.swing.JFrame {
             jComboBox3.addItem(obj.getNom());
         }
         jComboBox3.setSelectedIndex(1);
+    }
+    
+    private void initJTextArea(){
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setWrapStyleWord(true);
+        jTextAreaData.setLineWrap(true);
+        jTextAreaData.setWrapStyleWord(true);
     }
     
     /**
