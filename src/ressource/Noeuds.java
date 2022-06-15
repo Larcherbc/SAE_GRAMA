@@ -91,7 +91,7 @@ public class Noeuds extends ArrayList<Noeud>{
      * Renvoie le nombre de {@link TypeNoeud#VILLE ville} contenu dans {@link Noeuds l'arrayList de noeuds}
      * @return Retourne le nombre de {@link TypeNoeud#VILLE ville} contenu dans {@link Noeuds l'arrayList de noeuds}
      */
-    public int afficherLocalite(){
+    public int compteLocalite(){
         int compteur = 0;
         for(Noeud obj : this){
             if(obj.getType().equals(TypeNoeud.VILLE)){
@@ -105,7 +105,7 @@ public class Noeuds extends ArrayList<Noeud>{
      * Renvoie le nombre de {@link TypeNoeud#RESTO restaurant} contenu dans {@link Noeuds l'arrayList de noeuds}
      * @return Retourne le nombre de {@link TypeNoeud#RESTO restaurant} contenu dans {@link Noeuds l'arrayList de noeuds}
      */
-    public int afficherRestaurant(){
+    public int compteRestaurant(){
         int compteur = 0;
         for(Noeud obj : this){
             if(obj.getType().equals(TypeNoeud.RESTO)){
@@ -119,7 +119,7 @@ public class Noeuds extends ArrayList<Noeud>{
      * Renvoie le nombre de {@link TypeNoeud#LOISIR lieu de loisir} contenu dans {@link Noeuds l'arrayList de noeuds}
      * @return Retourne le nombre de {@link TypeNoeud#LOISIR lieu de loisir} contenu dans {@link Noeuds l'arrayList de noeuds}
      */
-    public int afficherLoisir(){
+    public int compteLoisir(){
         int compteur = 0;
         for(Noeud obj : this){
             if(obj.getType().equals(TypeNoeud.LOISIR)){

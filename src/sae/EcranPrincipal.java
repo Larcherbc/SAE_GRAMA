@@ -137,7 +137,7 @@ public class EcranPrincipal extends javax.swing.JFrame {
         jPanel5.add(jLabel9);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel11.setText("Magenta = Autoroute");
+        jLabel11.setText("Marron = Autoroute");
         jPanel5.add(jLabel11);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N

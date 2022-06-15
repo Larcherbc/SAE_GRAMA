@@ -66,7 +66,7 @@ public class Graph extends JPanel {
         for (Lien obj : listeLiensSelection) {
             switch (obj.getType()){
                 case AUTOROUTE:
-                    g.setColor(Color.PINK);
+                    g.setColor(new Color(170, 111, 57));
                     break;
                 case NATIONALE:
                     g.setColor(Color.magenta);
@@ -78,7 +78,7 @@ public class Graph extends JPanel {
             g.drawLine(obj.getNomA().getCoord().x, obj.getNomA().getCoord().y, obj.getNomD().getCoord().x, obj.getNomD().getCoord().y);
         }
         g.setColor(Color.yellow);
-        for (Noeud obj : listeNoeudsHighlight) {
+        for (Noeud obj : currentNode) {
             g.fillOval(obj.getCoord().x - (SIZE + 10) / 2, obj.getCoord().y + 6, SIZE + 10, SIZE / 2);
         }
         for (Lien obj : listeLiensHighlight) {
@@ -94,24 +94,18 @@ public class Graph extends JPanel {
                     g.setColor(Color.red);
                     break;
                 case LOISIR:
-                    g.setColor(Color.green);
+                    g.setColor(new Color(74, 145, 48));
                     break;
                 default:
                     break;
             }
             g.fillOval(obj.getCoord().x - SIZE / 2, obj.getCoord().y - SIZE / 2, SIZE, SIZE);
-            if (listeNoeudsHighlight.contains(obj)) {
-                g.setColor(Color.yellow);
-            }
             g.drawString(obj.getNom(), obj.getCoord().x - obj.getNom().length() / 2 * 5, obj.getCoord().y + SIZE + 10);
 
         }
         g.setColor(Color.orange);
-        if (currentNode.size() >= 1) {
-            for(Noeud obj : currentNode){
+            for(Noeud obj : listeNoeudsHighlight){
                 g.fillOval(obj.getCoord().x - SIZE / 2, obj.getCoord().y - SIZE / 2, SIZE, SIZE);
-            g.drawString(obj.getNom(), obj.getCoord().x - obj.getNom().length() / 2 * 5, obj.getCoord().y + SIZE + 10);
-            }
         }
         if (currentLien != null) {
             g.drawLine(currentLien.getNomA().getCoord().x, currentLien.getNomA().getCoord().y, currentLien.getNomD().getCoord().x, currentLien.getNomD().getCoord().y);
@@ -429,14 +423,14 @@ public class Graph extends JPanel {
             int nbLoisir2;
 
             Noeuds listeOuverture1 = ouvertureNoeud(noeud1);// on récupère une liste de nooeuds qui sont a une 2 distance
-            nbVille1 = listeOuverture1.afficherLocalite(); // on récupère le noombre de ville
-            nbResto1 = listeOuverture1.afficherRestaurant();
-            nbLoisir1 = listeOuverture1.afficherLoisir();
+            nbVille1 = listeOuverture1.compteLocalite(); // on récupère le noombre de ville
+            nbResto1 = listeOuverture1.compteRestaurant();
+            nbLoisir1 = listeOuverture1.compteLoisir();
 
             Noeuds listeOuverture2 = ouvertureNoeud(noeud2);
-            nbVille2 = listeOuverture2.afficherLocalite();
-            nbResto2 = listeOuverture2.afficherRestaurant();
-            nbLoisir2 = listeOuverture2.afficherLoisir();
+            nbVille2 = listeOuverture2.compteLocalite();
+            nbResto2 = listeOuverture2.compteRestaurant();
+            nbLoisir2 = listeOuverture2.compteLoisir();
 
             if (nbVille1 > nbVille2) {// on compare
                 buffer += noeud1.getNom() + " est plus ouverte que " + noeud2.getNom() + "\n";
